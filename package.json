@@ -1,0 +1,16 @@
+{
+  "name": "scaffolds",
+  "version": "0.0.0",
+  "description": "Scaffolds",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/ErikEvenson/scaffolds.git"
+  },
+  "author": "Erik E. Evenson",
+  "bugs": {
+    "url": "https://github.com/ErikEvenson/scaffolds/issues"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.1"
+  }
+}
