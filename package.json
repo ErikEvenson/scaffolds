@@ -11,6 +11,7 @@
     "url": "https://github.com/ErikEvenson/scaffolds/issues"
   },
   "devDependencies": {
-    "grunt": "~0.4.1"
+    "grunt": "~0.4.1",
+    "load-grunt-tasks": "~0.1.0"
   }
 }
