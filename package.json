@@ -12,6 +12,7 @@
   },
   "devDependencies": {
     "grunt": "~0.4.1",
-    "load-grunt-tasks": "~0.1.0"
+    "load-grunt-tasks": "~0.1.0",
+    "grunt-contrib-jshint": "~0.6.3"
   }
 }
