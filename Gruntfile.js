@@ -65,6 +65,15 @@ module.exports = function(grunt){
                     'git commit -m "mod"',
                     'git push origin master'
                 ].join('&&')
+            },
+            server: {
+                options: {
+                    stdout: true,
+                    stderr: true
+                },
+                command: [
+                    'foreman start'
+                ].join('&&')
             }
         }
     });
@@ -83,5 +92,11 @@ module.exports = function(grunt){
     
     grunt.registerTask('dist', [
         'shell:dist'
+    ]);
+    
+    grunt.registerTask('server', [
+        'jshint',
+        'serverTest',
+        'shell:server'
     ]);
 };

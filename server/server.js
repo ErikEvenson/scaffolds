@@ -1,10 +1,13 @@
 'use strict';
 var http = require('http');
+var express = require('express');
+var server = new express();
 var port = process.env.PORT || 5000;
 
-http.createServer(function(request, response){
-    response.writeHead(200, {'Content-Type': 'text/plain'});
-    response.end('Scaffolds\n');
-}).listen(port);
+http.createServer(server).listen(port, function(){
+    console.log('Server started.');
+});
 
-console.log('Server running at http://127.0.0.1:' + port);
+server.get('/', function(request, response){
+    response.send('Welcome!');
+});
