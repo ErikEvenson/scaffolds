@@ -1,14 +1,13 @@
 'use strict';
 
 require.config({
-    baseUrl: '/app/js',
+    baseUrl: '/js',
     paths: {
-        bootstrap: '../../bower_components/bootstrap/dist/js/bootstrap',
-        jquery: '../../bower_components/jquery/jquery'
+        bootstrap: '../bower_components/bootstrap/dist/js/bootstrap',
+        jquery: '../bower_components/jquery/jquery'
     }
 });
 
-
-require(['jquery'], function($){
-    console.log('jQuery version: ', $.fn.jquery);
+require(['app'], function(app){
+    console.log(app);
 });

@@ -14,7 +14,7 @@ module.exports = function(grunt){
         
         bower: {
             options: {
-                exclude: ['modernizr']
+                baseUrl: 'app'
             },
             all: {
                 rjsConfig: '<%= config.app %>/js/main.js'
@@ -45,6 +45,17 @@ module.exports = function(grunt){
             
         pkg: grunt.file.readJSON('package.json'),
         
+        requirejs: {
+            compile: {
+                options: {
+                    baseUrl: "app/js",
+                    mainConfigFile: "app/js/main.js",
+                    name: 'app',
+                    out: "app/js/app.min.js"
+                }
+            }
+        },
+          
         shell: {
             dist: {
                 options: {
