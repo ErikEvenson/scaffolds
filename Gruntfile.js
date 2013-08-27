@@ -35,7 +35,7 @@ module.exports = function(grunt){
         pkg: grunt.file.readJSON('package.json'),
         
         shell: {
-            deploy: {
+            dist: {
                 options: {
                     stdout: true,
                     stderr: true
@@ -49,9 +49,19 @@ module.exports = function(grunt){
                     'echo == Cloning heroku repo...',
                     'git clone git@heroku.com:scaffolds.git .',
                     'rm -rf *',
+                    'echo == Creating distribution...',
+                    'cp -R ../app ../server ../package.json ../Procfile .'
+                ].join('&&')
+            },
+            deploy: {
+                options: {
+                    stdout: true,
+                    stderr: true
+                },
+                command: [
                     'echo == Deploying updates to heroku...',
-                    'cp app server ../server.js ../package.json ../Procfile .',
-                    'git add .',
+                    'cd <%= config.dist %>',
+                    'git add --all .',
                     'git commit -m "mod"',
                     'git push origin master'
                 ].join('&&')
@@ -61,12 +71,17 @@ module.exports = function(grunt){
     
     grunt.registerTask('default', [
         'jshint',
-        'serverTest'
+        'serverTest',
+        'dist'
     ]);
     
     grunt.registerTask('serverTest', 'mochaTest');
-    
+
     grunt.registerTask('deploy', [
         'shell:deploy'
+    ]);
+    
+    grunt.registerTask('dist', [
+        'shell:dist'
     ]);
 };
