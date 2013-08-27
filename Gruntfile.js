@@ -100,7 +100,8 @@ module.exports = function(grunt){
                 command: [
                     'mkdir <%= config.dist %>',
                     'cd <%= config.dist %>',
-                    'git clone --bare git@heroku.com:scaffolds.git .',
+                    'git clone git@heroku.com:scaffolds.git .',
+                    'rm -rf *',
                     'echo == Creating distribution...',
                     'cp -R ../app ../server ../package.json ../Procfile .'
                 ].join('&&')
