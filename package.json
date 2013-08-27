@@ -1,22 +1,23 @@
 {
-    "name": "scaffolds",
-    "version": "0.0.0",
-    "description": "Scaffolds",
-    "repository": {
-        "type": "git",
-        "url": "git://github.com/ErikEvenson/scaffolds.git"
-    },
-    "author": "Erik E. Evenson",
-    "bugs": {
-        "url": "https://github.com/ErikEvenson/scaffolds/issues"
-    },
-    "engines": {
-        "node": "0.10.x",
-        "npm": "1.3.x"
-    },
-    "devDependencies": {
-        "grunt": "~0.4.1",
-        "load-grunt-tasks": "~0.1.0",
-        "grunt-contrib-jshint": "~0.6.3"
-    }
+  "name": "scaffolds",
+  "version": "0.0.0",
+  "description": "Scaffolds",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/ErikEvenson/scaffolds.git"
+  },
+  "author": "Erik E. Evenson",
+  "bugs": {
+    "url": "https://github.com/ErikEvenson/scaffolds/issues"
+  },
+  "engines": {
+    "node": "0.10.x",
+    "npm": "1.3.x"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "load-grunt-tasks": "~0.1.0",
+    "grunt-contrib-jshint": "~0.6.3",
+    "grunt-shell": "~0.3.1"
+  }
 }
