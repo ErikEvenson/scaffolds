@@ -4,12 +4,22 @@ module.exports = function(grunt){
     require('load-grunt-tasks')(grunt);
     
     var config = {
+        app: 'app',
         dist: 'dist',
         herokuAppName: 'scaffolds'
     };
     
     grunt.initConfig({
         config: config,
+        
+        bower: {
+            options: {
+                exclude: ['modernizr']
+            },
+            all: {
+                rjsConfig: '<%= config.app %>/js/main.js'
+            }
+        },
         
         jshint: {
             all: [
