@@ -11,12 +11,11 @@ html(lang="en")
             p Static content here.
 
         #dialog-region
-        script(data-main="js/main", src="bower_components/requirejs/require.js")
-    
+
         <!-- @exclude -->
-        script(src="js/app.js")
+        script(data-main="js/main", src="bower_components/requirejs/require.js")
         <!-- @endexclude -->
     
     <!-- @exclude -->
     //- <!-- @endexclude -->
-        script(src="js/app.min.js")
+        script(data-main="js/main.min", src="bower_components/requirejs/require.js")

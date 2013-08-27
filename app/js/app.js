@@ -1,5 +1,12 @@
 'use strict';
+/* global define */
 
-require(['blah'], function(blah){
-    console.log(blah);
+define(['marionette'], function(Marionette){
+    var App = new Marionette.Application();
+    
+    App.on('initialize:after', function(){
+        console.log('App has initialized.');
+    });
+    
+    return App;
 });
