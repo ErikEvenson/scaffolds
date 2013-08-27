@@ -12,14 +12,26 @@ module.exports = function(grunt){
         config: config,
         
         jshint: {
+            all: [
+                '*.js',
+                'app/**/*.js',
+                'server/**/*.js',
+                'test/**/*.js'
+            ],
             options: {
                 jshintrc: '.jshintrc'
-            },
-            all: [
-                '{,*/}*.js',
-            ]
+            }
         },
         
+        mochaTest: {
+            test: {
+                options: {
+                    reporter: 'spec'
+                },
+                src: ['test/server/**/*.js']
+            }
+        },
+            
         pkg: grunt.file.readJSON('package.json'),
         
         shell: {
@@ -38,7 +50,7 @@ module.exports = function(grunt){
                     'git clone git@heroku.com:scaffolds.git .',
                     'rm -rf *',
                     'echo == Deploying updates to heroku...',
-                    'cp ../server.js ../package.json ../Procfile .',
+                    'cp app server ../server.js ../package.json ../Procfile .',
                     'git add .',
                     'git commit -m "mod"',
                     'git push origin master'
@@ -47,9 +59,12 @@ module.exports = function(grunt){
         }
     });
     
-    grunt.registerTask('default', function(){
-        console.log('Grunt default task enabled.');
-    });
+    grunt.registerTask('default', [
+        'jshint',
+        'serverTest'
+    ]);
+    
+    grunt.registerTask('serverTest', 'mochaTest');
     
     grunt.registerTask('deploy', [
         'shell:deploy'
