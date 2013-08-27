@@ -6,7 +6,7 @@ var port = process.env.PORT || 5000;
 
 server.set('view engine', 'jade');
 server.set('views', './app/views');
-server.use(express.static('./app/public'));
+server.use(express.static('./app'));
 
 server.get('/', function(request, response){
     response.render('index');
