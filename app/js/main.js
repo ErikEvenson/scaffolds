@@ -7,7 +7,3 @@ require.config({
         jquery: '../bower_components/jquery/jquery'
     }
 });
-
-require(['app'], function(app){
-    console.log(app);
-});

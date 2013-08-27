@@ -12,6 +12,28 @@ module.exports = function(grunt){
     grunt.initConfig({
         config: config,
         
+        clean: {
+            dist: {
+                files: [{
+                    dot: true,
+                    src: [
+                        '<%= config.dist %>'
+                    ]
+                }]
+            },
+            forDeploy: {
+                files: [{
+                    dot: true,
+                    src: [
+                        '<%= config.dist %>/app/js/*.js',
+                        '!<%= config.dist %>/app/js/*.min.js',
+                        '!<%= config.dist %>/app/js/main.js',
+                    ]
+                }]
+            },
+            server: '.tmp'
+        },
+        
         bower: {
             options: {
                 baseUrl: 'app'
@@ -25,6 +47,7 @@ module.exports = function(grunt){
             all: [
                 '*.js',
                 'app/**/*.js',
+                '!app/**/*.min.js',
                 '!app/bower_components/**/*.js',
                 'server/**/*.js',
                 'test/**/*.js'
@@ -45,13 +68,25 @@ module.exports = function(grunt){
             
         pkg: grunt.file.readJSON('package.json'),
         
-        requirejs: {
-            compile: {
+        preprocess: {
+            options: {
+                context : {}
+            },
+            inline: {
+                src: ['dist/**/*.jade'],
                 options: {
-                    baseUrl: "app/js",
-                    mainConfigFile: "app/js/main.js",
+                    inline: true
+                }
+            }
+        },
+        
+        requirejs: {
+            dist: {
+                options: {
+                    baseUrl: 'app/js',
+                    mainConfigFile: 'app/js/main.js',
                     name: 'app',
-                    out: "app/js/app.min.js"
+                    out: 'app/js/app.min.js'
                 }
             }
         },
@@ -63,14 +98,9 @@ module.exports = function(grunt){
                     stderr: true
                 },
                 command: [
-                    'echo == Removing old dist directory...',
-                    'rm -rf <%= config.dist %>',
-                    'echo == Creating new dist directory...',
                     'mkdir <%= config.dist %>',
                     'cd <%= config.dist %>',
-                    'echo == Cloning heroku repo...',
-                    'git clone git@heroku.com:scaffolds.git .',
-                    'rm -rf *',
+                    'git clone --bare git@heroku.com:scaffolds.git .',
                     'echo == Creating distribution...',
                     'cp -R ../app ../server ../package.json ../Procfile .'
                 ].join('&&')
@@ -113,7 +143,11 @@ module.exports = function(grunt){
     ]);
     
     grunt.registerTask('dist', [
-        'shell:dist'
+        'requirejs',
+        'clean:dist',
+        'shell:dist',
+        'preprocess',
+        'clean:forDeploy'
     ]);
     
     grunt.registerTask('server', [

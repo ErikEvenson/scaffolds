@@ -3,14 +3,20 @@ html(lang="en")
     head
         meta(charset="utf-8")
         title Scaffolds
-        link(href="bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet")
+        link(href="bower_components/bootstrap/dist/css/bootstrap.css", rel="stylesheet")
 
     body
         #header-region
-
         #main-region.container
             p Static content here.
 
         #dialog-region
-        
-        script(data-main="js/main" src="bower_components/requirejs/require.js")
+        script(data-main="js/main", src="bower_components/requirejs/require.js")
+    
+        <!-- @exclude -->
+        script(src="js/app.js")
+        <!-- @endexclude -->
+    
+    <!-- @exclude -->
+    //- <!-- @endexclude -->
+        script(src="js/app.min.js")
