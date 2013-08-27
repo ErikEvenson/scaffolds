@@ -26,8 +26,7 @@ module.exports = function(grunt){
                     dot: true,
                     src: [
                         '<%= config.dist %>/app/js/*.js',
-                        '!<%= config.dist %>/app/js/*.min.js',
-                        '!<%= config.dist %>/app/js/main.js',
+                        '!<%= config.dist %>/app/js/*.min.js'
                     ]
                 }]
             },
@@ -85,8 +84,8 @@ module.exports = function(grunt){
                 options: {
                     baseUrl: 'app/js',
                     mainConfigFile: 'app/js/main.js',
-                    name: 'app',
-                    out: 'app/js/app.min.js'
+                    name: 'main',
+                    out: 'app/js/main.min.js'
                 }
             }
         },
