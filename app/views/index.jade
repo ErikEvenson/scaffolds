@@ -4,13 +4,21 @@ html(lang="en")
         meta(charset="utf-8")
         title Scaffolds
         link(href="bower_components/bootstrap/dist/css/bootstrap.css", rel="stylesheet")
-
+        link(href="/css/app.css", rel="stylesheet")
+        
     body
-        #header-region
-        #main-region.container
-            p Static content here.
+        div#header-region
+            div.navbar.navbar-inverse.navbar-fixed-top
+                div.navbar-inner
+                    div.container
+                        span.navbar-brand Organization manager
+        
+        div#main-region.container
+            h1 Placeholder content.
+            
+        div#footer-region
 
-        #dialog-region
+        div#dialog-region
 
         <!-- @exclude -->
         script(data-main="js/main", src="bower_components/requirejs/require.js")
