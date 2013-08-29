@@ -28,6 +28,7 @@
     "chai": "~1.7.2"
   },
   "dependencies": {
-    "percolator": "~1.2.0"
+    "percolator": "~1.2.0",
+    "node-uuid": "~1.4.1"
   }
 }

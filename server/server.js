@@ -29,61 +29,50 @@ var schema = {
 var widgetCollection = new CRUDCollection({
     schema: schema,
     
+    create: function(req, res, widget, cb){
+        widgets.create(widget, function(err, key){
+            if (err){
+                return cb(true);
+            } else {
+                res.status.created(req.uri.child(key));
+            }
+        });
+    },
+    
+    destroy: function(req, res, key, cb){
+        widgets.destroy(key, function(err){
+            if (err) {
+                if (err === 'Not found') {
+                    cb(true);
+                }
+                return res.status.internalServerError(err);
+            } else {
+                cb(null);
+            }
+        });
+    },
+    
+    fetch: function(req, res, cb){
+        var key = req.uri.child();
+        
+        widgets.read(key, function(err, widget){
+            if (err) {
+                if (err === 'Not found') {
+                    cb(true);
+                }
+                return res.status.internalServerError(err);
+            } else {
+                cb(null, widget);
+            }
+        });
+    },
+    
     list: function(req, res, cb){
-        return cb(null, widgets.list());
+        widgets.list(function(err, widgets){
+            cb(null, widgets);
+        });
     }
 });
-
-// var linkCollection = new CRUDCollection({
-// 
-//   schema : schema,
-// 
-//   create : function(req, res, obj, cb){
-//     db.insert(obj, function(err, id){
-//       if (err){
-//         return res.status.internalServerError(err);
-//       }
-//       cb();
-//     });
-//   },
-// 
-//   update : function(req, res, id, obj, cb){
-//     db.update(id, obj, function(err){
-//       if (err){
-//         return res.status.internalServerError(err);
-//       }
-//       cb();
-//     });
-//   },
-// 
-//   destroy : function(req, res, id, cb){
-//     db.remove(id, function(err){
-//       if (err){
-//         return res.status.internalServerError(err);
-//       }
-//       cb();
-//     });
-//   },
-// 
-//   list : function(res, res, cb){
-//     db.find(function(err, objects){
-//       return cb(err, objects);
-//     });
-//   },
-// 
-//   fetch : function(req, res, cb){
-//     db.findById(req.uri.child(), function(err, foundObject){
-//       if (err){
-//         if (err === 'Not Found'){
-//           return cb(true);
-//         }
-//         return res.status.internalServerError(err);
-//       }
-//       cb(null, foundObject);
-//     });
-//   }
-// 
-// });
 
 var server = new Percolator({
     'autolink': true,
@@ -95,7 +84,7 @@ var server = new Percolator({
 });
 
 server.route('/api/widgets', widgetCollection.handler);
-// server.route('/api/widgets/:key', widgetCollection.wildcard);
+server.route('/api/widgets/:key', widgetCollection.wildcard);
 
 // server.route('/api', {
 //     GET: function(req, res){
