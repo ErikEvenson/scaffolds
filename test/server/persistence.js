@@ -1,12 +1,12 @@
 'use strict';
-/* global chai, describe, it */
+/* global describe, it */
 var chai = require('chai');
 var expect = chai.expect;
+var UserProvider = require('../../server/providers/userProvider').UserProvider;
 
 describe('Persistence', function(){
     describe('#UserProvider', function(){
         it('should exist', function(){
-            var UserProvider = require('../../server/providers/userProvider').UserProvider;
             expect(UserProvider).to.not.equal(undefined);
         });
     });
