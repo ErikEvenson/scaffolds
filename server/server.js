@@ -43,11 +43,12 @@ var widgetCollection = new CRUDCollection({
         widgets.destroy(key, function(err){
             if (err) {
                 if (err === 'Not found') {
-                    cb(true);
+                    return res.status.notFound();
+                } else {
+                    return res.status.internalServerError(err);
                 }
-                return res.status.internalServerError(err);
             } else {
-                cb(null);
+                cb();
             }
         });
     },
