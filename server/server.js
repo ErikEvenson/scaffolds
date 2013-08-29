@@ -59,7 +59,7 @@ var widgetCollection = new CRUDCollection({
         widgets.read(key, function(err, widget){
             if (err) {
                 if (err === 'Not found') {
-                    cb(true);
+                    return res.status.notFound();
                 }
                 return res.status.internalServerError(err);
             } else {
