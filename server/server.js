@@ -30,7 +30,7 @@ var widgetCollection = new CRUDCollection({
     schema: schema,
     
     create: function(req, res, widget, cb){
-        widgets.create(widget, function(err, key){
+        widgets.create(null, widget, function(err, key){
             if (err){
                 return cb(true);
             } else {
@@ -75,6 +75,16 @@ var widgetCollection = new CRUDCollection({
     
     update: function(req, res, key, widget, cb){
         widgets.update(key, widget, function(err){
+            if (err) {
+                res.status.internalServerError(err);
+            } else {
+                cb();
+            }
+        });
+    },
+    
+    upsert: function(req, res, key, widget, cb) {
+        widgets.upsert(key, widget, function(err){
             if (err) {
                 res.status.internalServerError(err);
             } else {

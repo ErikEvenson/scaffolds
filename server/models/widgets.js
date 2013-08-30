@@ -8,11 +8,18 @@ var widgets = {
     }
 };
 
-exports.create = function(widget, cb){
+exports.create = function(key, widget, cb){
     // Assumes widget is validated already
-    var key = uuid.v4();
-    widgets[key] = widget;
-    cb(null, key);
+    var err = null;
+    key = key || uuid.v4();
+    
+    if (key in widgets) {
+        err = 'Alread exists';
+    } else {
+        widgets[key] = widget;
+    }
+
+    cb(err, key);
 };
 
 exports.destroy = function(key, cb){
@@ -54,4 +61,12 @@ exports.update = function(key, widget, cb) {
     }
     
     cb(err);
+};
+
+exports.upsert = function(key, widget, cb) {
+    if (key in widgets) {
+        exports.update(key, widget, cb);
+    } else {
+        exports.create(key, widget, cb);
+    }
 };
