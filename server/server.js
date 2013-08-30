@@ -28,6 +28,8 @@ var schema = {
 
 var widgetCollection = new CRUDCollection({
     schema: schema,
+    updateSchema: schema,
+    createSchema: schema,
     
     create: function(req, res, widget, cb){
         widgets.create(null, widget, function(err, key){
