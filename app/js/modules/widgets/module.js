@@ -1,6 +1,9 @@
+/*
+Test comment.
+*/
+
 'use strict';
 /* global define */
-
 /*jshint -W098 */
 define(['app'], function(App){
     var module = App.module('Widgets', function(Module, App, Backbone,
@@ -33,14 +36,17 @@ define(['app'], function(App){
         };
         
         var API = {
-            list: function(){
-                console.log('listing widgets....');
+            list: function(criterion){
+                require(['modules/widgets/list/controller'],
+                 function(controller){
+                    executeAction(controller.list);
+                });
             }
         };
     
         App.on('widgets:list', function(){
             App.navigate('widgets');
-            API.list();
+            API.list(null);
         });
 
         /*jshint -W031 */
