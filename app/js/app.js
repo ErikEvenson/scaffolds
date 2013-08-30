@@ -1,11 +1,19 @@
 'use strict';
 /* global define */
 
-define(['marionette'], function(Marionette){
+define(['backbone', 'marionette'], function(Backbone, Marionette){
     var App = new Marionette.Application();
     
+    App.addRegions({
+        mainRegion: '#main-region'
+    });
+    
     App.on('initialize:after', function(){
-        console.log('App has initialized.');
+        if (Backbone.history) {
+            require(['apps/widgets/widgets'], function(){
+                Backbone.history.start();
+            });
+        }
     });
     
     return App;
