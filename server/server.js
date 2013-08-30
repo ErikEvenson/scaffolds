@@ -39,14 +39,11 @@ var widgetCollection = new CRUDCollection({
         });
     },
     
+    /*jshint -W098 */
     destroy: function(req, res, key, cb){
         widgets.destroy(key, function(err){
             if (err) {
-                if (err === 'Not found') {
-                    return res.status.notFound();
-                } else {
-                    return res.status.internalServerError(err);
-                }
+                res.status.internalServerError(err);
             } else {
                 cb();
             }
@@ -59,9 +56,11 @@ var widgetCollection = new CRUDCollection({
         widgets.read(key, function(err, widget){
             if (err) {
                 if (err === 'Not found') {
-                    return res.status.notFound();
+                    return cb(true);
+                } else {
+                    res.status.internalServerError(err);
+                    return cb(true);
                 }
-                return res.status.internalServerError(err);
             } else {
                 cb(null, widget);
             }
@@ -86,14 +85,6 @@ var server = new Percolator({
 
 server.route('/api/widgets', widgetCollection.handler);
 server.route('/api/widgets/:key', widgetCollection.wildcard);
-
-// server.route('/api', {
-//     GET: function(req, res){
-//         res.object({
-//             message: 'Hello World!'
-//         }).send();
-//     }
-// });
 
 server.listen(function(err){
     if(err){throw err;}
