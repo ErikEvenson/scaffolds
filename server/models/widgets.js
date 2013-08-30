@@ -44,4 +44,14 @@ exports.read = function(key, cb){
     return cb(err, widget);
 };
 
-exports.update = exports.create;
+exports.update = function(key, widget, cb) {
+    var err = null;
+    
+    if (key in widgets) {
+        widgets[key] = widget;
+    } else {
+        err = 'Not found';
+    }
+    
+    cb(err);
+};

@@ -71,6 +71,16 @@ var widgetCollection = new CRUDCollection({
         widgets.list(function(err, widgets){
             cb(null, widgets);
         });
+    },
+    
+    update: function(req, res, key, widget, cb){
+        widgets.update(key, widget, function(err){
+            if (err) {
+                res.status.internalServerError(err);
+            } else {
+                cb();
+            }
+        });
     }
 });
 
