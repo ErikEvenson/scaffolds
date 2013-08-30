@@ -35,6 +35,5 @@ require.config({
 });
 
 require(['jquery', 'app'], function($, App){
-    console.log('Starting App');
     App.start();
 });

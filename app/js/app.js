@@ -40,6 +40,10 @@ define(['backbone', 'marionette'], function(Backbone, Marionette){
         if (Backbone.history) {
             require(['modules/widgets/module'], function(){
                 Backbone.history.start();
+                
+                if (App.getCurrentRoute() === ''){
+                    App.trigger('widgets:list');
+                }
             });
         }
     });
