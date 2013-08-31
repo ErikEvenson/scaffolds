@@ -39,14 +39,14 @@ define(['app'], function(App){
             list: function(criterion){
                 require(['modules/widgets/list/controller'],
                  function(controller){
-                    executeAction(controller.list);
+                    executeAction(controller.list, criterion);
                 });
             }
         };
     
-        App.on('widgets:list', function(){
+        App.on('widgets:list', function(criterion){
             App.navigate('widgets');
-            API.list(null);
+            API.list(criterion);
         });
 
         /*jshint -W031 */

@@ -27,6 +27,7 @@ define(['app'], function(App){
             comparator: 'name',
             
             parse: function(response, options){
+                // Convert from Percolator to Backbone
                 var widgets = [];
                 var items = response._items;
                 var ids = Object.keys(items);

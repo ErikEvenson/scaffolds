@@ -41,8 +41,9 @@ define(['backbone', 'marionette'], function(Backbone, Marionette){
             require(['modules/widgets/module'], function(){
                 Backbone.history.start();
                 
+                // If no route is provided, show a list of widgets
                 if (App.getCurrentRoute() === ''){
-                    App.trigger('widgets:list');
+                    App.trigger('widgets:list', null);
                 }
             });
         }
