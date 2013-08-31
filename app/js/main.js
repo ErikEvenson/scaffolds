@@ -10,7 +10,8 @@ require.config({
         marionette: '../bower_components/marionette/lib/backbone.marionette',
         underscore: '../bower_components/underscore/underscore',
         'requirejs-tpl': '../bower_components/requirejs-tpl/tpl',
-        requirejs: '../bower_components/requirejs/require'
+        requirejs: '../bower_components/requirejs/require',
+        respond: '../bower_components/respond/respond.src'
     },
     shim: {
         backbone: {
