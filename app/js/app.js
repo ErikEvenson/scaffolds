@@ -8,6 +8,7 @@ define(['backbone', 'marionette'], function(Backbone, Marionette){
     var App = new Marionette.Application();
     
     App.addRegions({
+        headerRegion: '#header-region',
         mainRegion: '#main-region'
     });
     
@@ -43,8 +44,10 @@ define(['backbone', 'marionette'], function(Backbone, Marionette){
         if (Backbone.history) {
             require([
                 'modules/widgets/module',
-                'modules/about/module'
+                'modules/about/module',
+                'modules/header/module'
             ], function(){
+                App.Header.start();
                 Backbone.history.start();
                 
                 // If no route is provided, show a list of widgets

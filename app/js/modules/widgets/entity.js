@@ -1,3 +1,6 @@
+/*
+The Widgets entities module.
+*/
 'use strict';
 
 /* global define */

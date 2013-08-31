@@ -36,6 +36,6 @@ require.config({
     }
 });
 
-require(['jquery', 'app'], function($, App){
+require(['jquery', 'app', 'modules/header/module'], function($, App){
     App.start();
 });
