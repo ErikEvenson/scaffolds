@@ -19,10 +19,23 @@ define(['app', './view'], function(App, View){
                     var fetchingWidgets = App.request('widget:entities');
                 
                     $.when(fetchingWidgets).done(function(widgets){
-                        console.log(widgets);
+                        var listView = new View.Widgets({
+                            collection: widgets
+                        });
+                        
+                        layout.on('show', function(){
+                            layout.panelRegion.show(panel);
+                            layout.contentRegion.show(listView);
+                        });
+                        
+                        listView.on('itemview:widget:show', function(childView,
+                             model){
+                            console.log('XXXX');
+                            App.trigger('widget:show', model.get('id'));
+                        });
+                        
+                        App.mainRegion.show(layout);
                     });
-                    
-                    App.mainRegion.show(layout);
                 });
                 
             }

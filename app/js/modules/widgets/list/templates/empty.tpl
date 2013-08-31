@@ -1,0 +1,1 @@
+<td colspan="2">No widgets to display.</td>

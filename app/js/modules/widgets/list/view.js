@@ -4,10 +4,18 @@
 /*jshint -W098 */
 define([
     'app',
-    'requirejs-tpl!modules/widgets/list/templates/layout.tpl'
-], function(App, layout){
+    'requirejs-tpl!modules/widgets/list/templates/layout.tpl',
+    'requirejs-tpl!modules/widgets/list/templates/list.tpl',
+    'requirejs-tpl!modules/widgets/list/templates/listItem.tpl',
+    'requirejs-tpl!modules/widgets/list/templates/empty.tpl',
+    'requirejs-tpl!modules/widgets/list/templates/panel.tpl'
+], function(App, layout, list, listItem, empty, panel){
     var module = App.module('Widgets.List.View', function(View, App, Backbone,
          Marionette, $, _){
+
+        View.EmptyView = Marionette.ItemView.extend({
+            template: empty
+        });
 
         View.Layout = Marionette.Layout.extend({
             template: layout,
@@ -19,19 +27,35 @@ define([
         });
         
         View.Panel = Marionette.ItemView.extend({
-            
+            template: panel
         });
         
         View.Widget = Marionette.ItemView.extend({
-            
+            template: listItem,
+            tagName: 'tr'
         });
         
         View.Widgets = Marionette.CompositeView.extend({
+            tagName: 'table',
+            className: 'table table-hover',
+            template: list,
+            emptyView: View.EmptyView,
+            itemView: View.Widget,
+            itemViewContainer: 'tbody',
             
-        });
-        
-        View.EmptyView = Marionette.ItemView.extend({
+            initialize: function(){
+                this.listenTo(this.collection, 'reset', function(){
+                    this.appendHtml = function(collectionView, itemView, index){
+                        collectionView.$el.append(itemView.el);
+                    };
+                });
+            },
             
+            onCompositeCollectionRendered: function(){
+                this.appendHtml = function(collectionView, itemView, index){
+                    collectionView.$el.prepend(itemView.el);
+                };
+            }
         });
     });
     
