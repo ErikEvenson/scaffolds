@@ -22,6 +22,11 @@ require.config({
             ],
             exports: 'Backbone'
         },
+        bootstrap: {
+            deps: [
+                'jquery'
+            ]
+        },
         marionette: {
             deps: [
                 'backbone'
@@ -37,6 +42,7 @@ require.config({
     }
 });
 
-require(['jquery', 'app', 'modules/header/module'], function($, App){
+require(['jquery', 'app', 'bootstrap', 'modules/header/module'],
+ function($, App){
     App.start();
 });
