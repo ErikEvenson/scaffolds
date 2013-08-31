@@ -8,7 +8,9 @@ require.config({
         jquery: '../bower_components/jquery/jquery',
         json2: '../bower_components/json2/json2',
         marionette: '../bower_components/marionette/lib/backbone.marionette',
-        underscore: '../bower_components/underscore/underscore'
+        underscore: '../bower_components/underscore/underscore',
+        'requirejs-tpl': '../bower_components/requirejs-tpl/tpl',
+        requirejs: '../bower_components/requirejs/require'
     },
     shim: {
         backbone: {

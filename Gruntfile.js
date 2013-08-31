@@ -35,7 +35,7 @@ module.exports = function(grunt){
         
         bower: {
             options: {
-                baseUrl: 'app'
+                baseUrl: 'app/js'
             },
             all: {
                 rjsConfig: '<%= config.app %>/js/main.js'

@@ -21,6 +21,8 @@ define(['app', './view'], function(App, View){
                     $.when(fetchingWidgets).done(function(widgets){
                         console.log(widgets);
                     });
+                    
+                    App.mainRegion.show(layout);
                 });
                 
             }
