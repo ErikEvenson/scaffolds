@@ -30,7 +30,6 @@ define(['app', './view'], function(App, View){
                         
                         listView.on('itemview:widget:show', function(childView,
                              model){
-                            console.log('XXXX');
                             App.trigger('widget:show', model.get('id'));
                         });
                         

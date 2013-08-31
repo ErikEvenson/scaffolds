@@ -4,11 +4,11 @@
 /*jshint -W098 */
 define([
     'app',
-    'requirejs-tpl!modules/widgets/list/templates/layout.tpl',
-    'requirejs-tpl!modules/widgets/list/templates/list.tpl',
-    'requirejs-tpl!modules/widgets/list/templates/listItem.tpl',
-    'requirejs-tpl!modules/widgets/list/templates/empty.tpl',
-    'requirejs-tpl!modules/widgets/list/templates/panel.tpl'
+    'requirejs-tpl!./templates/layout.tpl',
+    'requirejs-tpl!./templates/list.tpl',
+    'requirejs-tpl!./templates/listItem.tpl',
+    'requirejs-tpl!./templates/empty.tpl',
+    'requirejs-tpl!./templates/panel.tpl'
 ], function(App, layout, list, listItem, empty, panel){
     var module = App.module('Widgets.List.View', function(View, App, Backbone,
          Marionette, $, _){
