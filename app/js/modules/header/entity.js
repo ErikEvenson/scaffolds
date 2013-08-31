@@ -18,8 +18,14 @@ define(['app'], function(App){
         
         var initializeHeaders = function(){
             Entities.headers = new Entities.Headers([
-                { name: 'Widgets', url: 'widgets' },
-                { name: 'About', url: 'about' }
+                {
+                    name: 'Widgets',
+                    url: 'widgets'
+                },
+                {
+                    name: 'About',
+                    url: 'about'
+                }
             ]);
         };
         
