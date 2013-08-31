@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "percolator": "~1.2.0",
-    "node-uuid": "~1.4.1"
+    "node-uuid": "~1.4.1",
+    "underscore": "~1.5.1"
   }
 }

@@ -27,17 +27,10 @@ define(['app'], function(App){
             comparator: 'name',
             
             parse: function(response, options){
-                // Convert from Percolator to Backbone
                 var widgets = [];
                 var items = response._items;
-                var ids = Object.keys(items);
-
-                _.each(ids, function(id){
-                    var widget = {
-                        'id': id,
-                        'name': items[id].name,
-                        'type': items[id].type
-                    };
+                
+                _.each(items, function(widget){
                     widgets.push(widget);
                 });
 

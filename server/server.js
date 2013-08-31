@@ -13,6 +13,11 @@ var schema = {
     description : 'A widget',
     type: 'object',
     properties: {
+        id: {
+            title: 'id',
+            type: 'string',
+            required: true
+        },
         name: {
             title: 'name',
             type: 'string',
@@ -26,24 +31,28 @@ var schema = {
     }
 };
 
+var updateSchema = schema;
+var createSchema = schema;
+delete createSchema.properties.id;
+
 var widgetCollection = new CRUDCollection({
     schema: schema,
-    updateSchema: schema,
-    createSchema: schema,
+    updateSchema: updateSchema,
+    createSchema: createSchema,
     
     create: function(req, res, widget, cb){
-        widgets.create(null, widget, function(err, key){
+        widgets.create(null, widget, function(err, id){
             if (err){
                 return cb(true);
             } else {
-                res.status.created(req.uri.child(key));
+                res.status.created(req.uri.child(id));
             }
         });
     },
     
     /*jshint -W098 */
-    destroy: function(req, res, key, cb){
-        widgets.destroy(key, function(err){
+    destroy: function(req, res, id, cb){
+        widgets.destroy(id, function(err){
             if (err) {
                 res.status.internalServerError(err);
             } else {
@@ -53,9 +62,9 @@ var widgetCollection = new CRUDCollection({
     },
     
     fetch: function(req, res, cb){
-        var key = req.uri.child();
+        var id = req.uri.child();
         
-        widgets.read(key, function(err, widget){
+        widgets.read(id, function(err, widget){
             if (err) {
                 if (err === 'Not found') {
                     return cb(true);
@@ -75,8 +84,8 @@ var widgetCollection = new CRUDCollection({
         });
     },
     
-    update: function(req, res, key, widget, cb){
-        widgets.update(key, widget, function(err){
+    update: function(req, res, id, widget, cb){
+        widgets.update(id, widget, function(err){
             if (err) {
                 res.status.internalServerError(err);
             } else {
@@ -85,8 +94,8 @@ var widgetCollection = new CRUDCollection({
         });
     },
     
-    upsert: function(req, res, key, widget, cb) {
-        widgets.upsert(key, widget, function(err){
+    upsert: function(req, res, id, widget, cb) {
+        widgets.upsert(id, widget, function(err){
             if (err) {
                 res.status.internalServerError(err);
             } else {
@@ -106,7 +115,7 @@ var server = new Percolator({
 });
 
 server.route('/api/widgets', widgetCollection.handler);
-server.route('/api/widgets/:key', widgetCollection.wildcard);
+server.route('/api/widgets/:id', widgetCollection.wildcard);
 
 server.listen(function(err){
     if(err){throw err;}

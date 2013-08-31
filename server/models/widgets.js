@@ -3,30 +3,32 @@ var uuid = require('node-uuid');
 
 var widgets = {
     '1': {
-        name: 'widget name',
-        type: 'widget type'
+        'id': '1',
+        'name': 'widget name',
+        'type': 'widget type'
     }
 };
 
-exports.create = function(key, widget, cb){
+exports.create = function(id, widget, cb){
     // Assumes widget is validated already
     var err = null;
-    key = key || uuid.v4();
+    id = id || uuid.v4();
     
-    if (key in widgets) {
+    if (id in widgets) {
         err = 'Alread exists';
     } else {
-        widgets[key] = widget;
+        widget.id = id;
+        widgets[id] = widget;
     }
 
-    cb(err, key);
+    cb(err, id);
 };
 
-exports.destroy = function(key, cb){
+exports.destroy = function(id, cb){
     var err = null;
     
-    if (key in widgets) {
-        delete widgets[key];
+    if (id in widgets) {
+        delete widgets[id];
     } else {
         err = 'Not found';
     }
@@ -38,12 +40,12 @@ exports.list = function(cb){
     cb(null, widgets);
 };
 
-exports.read = function(key, cb){
+exports.read = function(id, cb){
     var err = null;
     var widget = null;
     
-    if (key in widgets) {
-        widget = widgets[key];
+    if (id in widgets) {
+        widget = widgets[id];
     } else {
         err = 'Not found';
     }
@@ -51,11 +53,11 @@ exports.read = function(key, cb){
     return cb(err, widget);
 };
 
-exports.update = function(key, widget, cb) {
+exports.update = function(id, widget, cb) {
     var err = null;
     
-    if (key in widgets) {
-        widgets[key] = widget;
+    if (id in widgets) {
+        widgets[id] = widget;
     } else {
         err = 'Not found';
     }
@@ -63,10 +65,10 @@ exports.update = function(key, widget, cb) {
     cb(err);
 };
 
-exports.upsert = function(key, widget, cb) {
-    if (key in widgets) {
-        exports.update(key, widget, cb);
+exports.upsert = function(id, widget, cb) {
+    if (id in widgets) {
+        exports.update(id, widget, cb);
     } else {
-        exports.create(key, widget, cb);
+        exports.create(id, widget, cb);
     }
 };
