@@ -1,44 +1,43 @@
 /*
-The Widgets module.
+The About module.
 */
 
 'use strict';
 /* global define */
 /*jshint -W098 */
 define(['app'], function(App){
-    var module = App.module('Widgets', function(Module, App, Backbone,
+    var module = App.module('About', function(Module, App, Backbone,
          Marionette, $, _){
              
         Module.startWithParent = false;
     });
     
-    App.module('Routers.Widgets', function(ModuleRouter, App, Backbone,
+    App.module('Routers.About', function(ModuleRouter, App, Backbone,
          Marionette, $, _){
              
         ModuleRouter.Router = Marionette.AppRouter.extend({
             appRoutes: {
-                'widgets': 'list'
+                'about': 'show'
             }
         });
         
         var executeAction = function(action, arg){
-            App.startModule('Widgets');
+            App.startModule('About');
             action(arg);
-            // App.execute("set:active:header", "widgets");
         };
         
         var API = {
-            list: function(criterion){
-                require(['modules/widgets/list/controller'],
+            show: function(criterion){
+                require(['modules/about/show/controller'],
                  function(controller){
-                    executeAction(controller.list, criterion);
+                    executeAction(controller.show);
                 });
             }
         };
     
-        App.on('widgets:list', function(criterion){
-            App.navigate('widgets');
-            API.list(criterion);
+        App.on('about:show', function(criterion){
+            App.navigate('about');
+            API.showAbout();
         });
 
         /*jshint -W031 */
@@ -49,5 +48,5 @@ define(['app'], function(App){
         });
     });
     
-    return App.Widgets;
+    return App.About;
 });

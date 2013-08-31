@@ -18,7 +18,6 @@ define(['app'], function(App){
                     return;
                 }
             }
-            
         });
 
         Entities.Widgets = Backbone.Collection.extend({

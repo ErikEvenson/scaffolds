@@ -1,3 +1,6 @@
+/*
+The App.
+*/
 'use strict';
 /* global define */
 
@@ -38,7 +41,10 @@ define(['backbone', 'marionette'], function(Backbone, Marionette){
     
     App.on('initialize:after', function(){
         if (Backbone.history) {
-            require(['modules/widgets/module'], function(){
+            require([
+                'modules/widgets/module',
+                'modules/about/module'
+            ], function(){
                 Backbone.history.start();
                 
                 // If no route is provided, show a list of widgets

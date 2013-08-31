@@ -1,3 +1,6 @@
+/*
+The Widgets list view.
+*/
 'use strict';
 
 /* global define */

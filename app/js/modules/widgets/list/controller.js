@@ -1,3 +1,6 @@
+/*
+The Widgets list controller.
+*/
 'use strict';
 
 /* global define */
