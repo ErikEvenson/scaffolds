@@ -8,7 +8,17 @@ define(['app', './view'], function(App, View){
 
         List.Controller = {
             list: function(criterion){
-                console.log('LIST');
+                require(['modules/widgets/entity'], function(){
+                    // var loadingView = new CommonViews.Loading();
+                    // ContactManager.mainRegion.show(loadingView);
+
+                    var fetchingWidgets = App.request('widget:entities');
+                
+                    $.when(fetchingWidgets).done(function(widgets){
+                        console.log(widgets);
+                    });
+                });
+                
             }
         };
     });
