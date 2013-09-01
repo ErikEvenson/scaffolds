@@ -4,6 +4,8 @@ require.config({
     baseUrl: '/js',
     paths: {
         backbone: '../bower_components/backbone/backbone',
+        'backbone.syphon':
+         '../bower_components/backbone.syphon/lib/amd/backbone.syphon',
         bootstrap: '../bower_components/bootstrap/dist/js/bootstrap',
         jquery: '../bower_components/jquery/jquery',
         json2: '../bower_components/json2/json2',
