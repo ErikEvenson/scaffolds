@@ -52,7 +52,7 @@ define(['app'], function(App){
         });
         
         var API = {
-            getWidgetEntities: function(){
+            getWidgets: function(){
                 var widgets = new Entities.Widgets();
                 var defer = $.Deferred();
             
@@ -68,7 +68,7 @@ define(['app'], function(App){
                 return defer.promise();
             },
             
-            getWidgetEntity: function(id){
+            getWidget: function(id){
                 var widget = new Entities.Widget({id: id});
                 var defer = $.Deferred();
                 
@@ -86,11 +86,11 @@ define(['app'], function(App){
         };
     
         App.reqres.setHandler('widget:entities', function(){
-            return API.getWidgetEntities();
+            return API.getWidgets();
         });
         
         App.reqres.setHandler('widget:entity', function(id){
-            return API.getWidgetEntity(id);
+            return API.getWidget(id);
         });
         
         App.reqres.setHandler('widget:entity:new', function(id){

@@ -42,10 +42,10 @@ define([
             tagName: 'tr',
             
             events: {
-                'click td button.js-show': 'showClicked'
+                'click td button.js-show': 'show'
             },
             
-            showClicked: function(e){
+            show: function(e){
                 e.preventDefault();
                 e.stopPropagation();
                 this.trigger('widget:show', this.model);

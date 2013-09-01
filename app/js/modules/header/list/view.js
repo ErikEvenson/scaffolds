@@ -19,7 +19,6 @@ define([
         });
         
         View.Headers = Marionette.CompositeView.extend({
-            // className: 'navbar navbar-inverse navbar-fixed-top',
             template: list,
             itemView: View.Header,
             itemViewContainer: 'ul',

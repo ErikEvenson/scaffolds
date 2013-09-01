@@ -11,7 +11,7 @@ define(['app', './view'], function(App, View){
 
         List.Controller = {
             list: function(){
-                require(['modules/header/entity'], function(){
+                require(['modules/header/entities'], function(){
                     // Display loading spinner
                     // var loadingView = new CommonViews.Loading();
                     // ContactManager.mainRegion.show(loadingView);

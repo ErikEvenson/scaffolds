@@ -14,7 +14,7 @@ define([
 
         Show.Controller = {
             show: function(id){
-                require(['modules/widgets/entity'], function(){
+                require(['modules/widgets/entities'], function(){
                     // TODO loading spinner
                     
                     var fetching = App.request('widget:entity', id);

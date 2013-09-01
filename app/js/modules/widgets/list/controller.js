@@ -15,7 +15,7 @@ define([
 
         List.Controller = {
             list: function(criterion){
-                require(['modules/widgets/entity'], function(){
+                require(['modules/widgets/entities'], function(){
                     // Display loading spinner
                     // var loadingView = new CommonViews.Loading();
                     // ContactManager.mainRegion.show(loadingView);

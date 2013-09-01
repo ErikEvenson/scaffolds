@@ -15,7 +15,7 @@ define([
              
         View.Widget = Marionette.ItemView.extend({
             events: {
-                'click button.js-submit': 'submitClicked'
+                'click button.js-submit': 'submit'
             },
             
             onFormDataInvalid: function(errors){
@@ -47,7 +47,7 @@ define([
                 _.each(errors, markErrors);
             },
             
-            submitClicked: function(e){
+            submit: function(e){
                 e.preventDefault(e);
                 var data = Backbone.Syphon.serialize(this);
                 this.trigger('form:submit', data);
