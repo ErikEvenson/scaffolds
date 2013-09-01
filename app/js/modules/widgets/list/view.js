@@ -39,7 +39,17 @@ define([
         
         View.Widget = Marionette.ItemView.extend({
             template: listItem,
-            tagName: 'tr'
+            tagName: 'tr',
+            
+            events: {
+                'click td button.js-show': 'showClicked'
+            },
+            
+            showClicked: function(e){
+                e.preventDefault();
+                e.stopPropagation();
+                this.trigger('widget:show', this.model);
+            }
         });
         
         View.Widgets = Marionette.CompositeView.extend({

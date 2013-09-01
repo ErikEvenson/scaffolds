@@ -17,7 +17,8 @@ define(['app'], function(App){
              
         ModuleRouter.Router = Marionette.AppRouter.extend({
             appRoutes: {
-                'widgets': 'list'
+                'widgets': 'list',
+                'widgets/:id': 'show'
             }
         });
         
@@ -33,12 +34,24 @@ define(['app'], function(App){
                  function(controller){
                     executeAction(controller.list, criterion);
                 });
+            },
+            
+            show: function(id){
+                require(['modules/widgets/show/controller'],
+                 function(controller){
+                    executeAction(controller.show, id);
+                });
             }
         };
     
         App.on('widgets:list', function(criterion){
             App.navigate('widgets');
             API.list(criterion);
+        });
+
+        App.on('widget:show', function(id){
+            App.navigate('widgets' + id);
+            API.show(id);
         });
 
         /*jshint -W031 */
