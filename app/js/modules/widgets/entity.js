@@ -21,11 +21,11 @@ define(['app'], function(App){
                 var errors = {};
                 
                 if (!attrs.name) {
-                    errors.firstName = 'can\'t be blank';
+                    errors.name = 'Name can\'t be blank';
                 }
                 
                 if (!attrs.type) {
-                    errors.lastName = 'can\'t be blank';
+                    errors.type = 'Type can\'t be blank';
                 }
                 
                 if(! _.isEmpty(errors)){

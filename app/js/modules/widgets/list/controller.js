@@ -56,7 +56,10 @@ define([
                                         App.modalRegion.reset();
                                         // TODO flash
                                     } else {
-                                        console.log('TBD');
+                                        newView.triggerMethod(
+                                            'form:data:invalid',
+                                            newWidget.validationError
+                                        );
                                     }
                                 });
                                 

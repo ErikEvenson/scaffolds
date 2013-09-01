@@ -18,6 +18,35 @@ define([
                 'click button.js-submit': 'submitClicked'
             },
             
+            onFormDataInvalid: function(errors){
+                var $view = this.$el;
+                    
+                var clearFormErrors = function(){
+                    var $form = $view.find('form');
+                    
+                    $form.find('.help-block.error').each(function(){
+                        $(this).remove();
+                    });
+                    
+                    $form.find('.form-group.error').each(function(){
+                        $(this).removeClass('error');
+                    });
+                };
+                    
+                var markErrors = function(value, key){
+                    var $formGroup = $view.find('#widget-' + key).parent();
+                    var $errorEl = $('<span>', {
+                        class: 'text-danger error',
+                        text: value
+                    });
+                    
+                    $formGroup.append($errorEl).addClass('error');
+                };
+                
+                clearFormErrors();
+                _.each(errors, markErrors);
+            },
+            
             submitClicked: function(e){
                 e.preventDefault(e);
                 var data = Backbone.Syphon.serialize(this);
