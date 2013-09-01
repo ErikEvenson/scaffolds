@@ -10,7 +10,13 @@ define([
     'regions/modalRegion'
 ], function(Backbone, Marionette, ModalRegion){
     var App = new Marionette.Application();
-    
+
+    App.Router = Marionette.AppRouter.extend({
+        appRoutes: {
+            '': 'home'
+        }
+    });
+        
     App.addRegions({
         modalRegion: new ModalRegion({el: '#modal'}),
         headerRegion: '#header-region',
@@ -61,6 +67,19 @@ define([
                 }
             });
         }
+    });
+    
+    var API = {
+        home: function(criterion){
+            App.trigger('widgets:list', criterion);
+        }
+    };
+    
+    /*jshint -W031 */
+    App.addInitializer(function(){
+        new App.Router({
+            controller: API
+        });
     });
     
     return App;

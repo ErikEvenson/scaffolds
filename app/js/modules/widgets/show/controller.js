@@ -14,7 +14,29 @@ define([
 
         Show.Controller = {
             show: function(id){
-                console.log('SHOWING ' + id);
+                require(['modules/widgets/entity'], function(){
+                    // TODO loading spinner
+                    
+                    var fetching = App.request('widget:entity', id);
+                    
+                    $.when(fetching).done(function(widget){
+                        var view;
+                        
+                        if(widget !== undefined){
+                            view = new View.Show({
+                                model: widget
+                            });
+                            
+                            view.on('widget:edit', function(widget){
+                                App.trigger('widget:edit', widget.get('id'));
+                            });
+                        } else {
+                            view = new View.Missing();
+                        }
+                        
+                        App.mainRegion.show(view);
+                    });
+                });
             }
         };
     });

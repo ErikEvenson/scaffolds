@@ -66,6 +66,22 @@ define(['app'], function(App){
                 });
             
                 return defer.promise();
+            },
+            
+            getWidgetEntity: function(id){
+                var widget = new Entities.Widget({id: id});
+                var defer = $.Deferred();
+                
+                widget.fetch({
+                    success: function(data){
+                        defer.resolve(data);
+                    },
+                    error: function(data){
+                        defer.resolve(undefined);
+                    }
+                });
+                
+                return defer.promise();
             }
         };
     
@@ -73,8 +89,12 @@ define(['app'], function(App){
             return API.getWidgetEntities();
         });
         
+        App.reqres.setHandler('widget:entity', function(id){
+            return API.getWidgetEntity(id);
+        });
+        
         App.reqres.setHandler('widget:entity:new', function(id){
-            return new Entities.Widget();
+            return new Entities.Widget(id);
         });
     });
     

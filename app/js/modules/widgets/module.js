@@ -50,7 +50,7 @@ define(['app'], function(App){
         });
 
         App.on('widget:show', function(id){
-            App.navigate('widgets' + id);
+            App.navigate('widgets/' + id);
             API.show(id);
         });
 
