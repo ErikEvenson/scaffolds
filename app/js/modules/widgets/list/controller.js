@@ -50,9 +50,15 @@ define([
                                     model: newWidget
                                 });
                                 
-                                // App.modalRegion = new ModalRegion(
-                                //     {el:'#modal'}
-                                // );
+                                newView.on('form:submit', function(data){
+                                    if(newWidget.save(data)){
+                                        widgets.add(newWidget);
+                                        App.modalRegion.reset();
+                                        // TODO flash
+                                    } else {
+                                        console.log('TBD');
+                                    }
+                                });
                                 
                                 App.modalRegion.show(newView);
                             });

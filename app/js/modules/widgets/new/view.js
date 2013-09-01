@@ -21,7 +21,6 @@ define([
             submitClicked: function(e){
                 e.preventDefault(e);
                 var data = Backbone.Syphon.serialize(this);
-                console.log(data);
                 this.trigger('form:submit', data);
             },
 

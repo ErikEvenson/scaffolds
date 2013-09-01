@@ -17,13 +17,19 @@ define(['app'], function(App){
             
             urlRoot: '/api/widgets',
             
-            validate: function(attributes, options){
+            validate: function(attrs, options) {
                 var errors = {};
                 
-                if (!_.isEmpty(errors)){
+                if (!attrs.name) {
+                    errors.firstName = 'can\'t be blank';
+                }
+                
+                if (!attrs.type) {
+                    errors.lastName = 'can\'t be blank';
+                }
+                
+                if(! _.isEmpty(errors)){
                     return errors;
-                } else {
-                    return;
                 }
             }
         });
