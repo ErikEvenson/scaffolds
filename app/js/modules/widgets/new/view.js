@@ -24,23 +24,23 @@ define([
                 var clearFormErrors = function(){
                     var $form = $view.find('form');
                     
-                    $form.find('.help-block.error').each(function(){
+                    $form.find('.help-inline.text-danger').each(function(){
                         $(this).remove();
                     });
                     
-                    $form.find('.form-group.error').each(function(){
-                        $(this).removeClass('error');
+                    $form.find('.form-group.text-danger').each(function(){
+                        $(this).removeClass('text-danger');
                     });
                 };
                     
                 var markErrors = function(value, key){
                     var $formGroup = $view.find('#widget-' + key).parent();
                     var $errorEl = $('<span>', {
-                        class: 'text-danger error',
+                        class: 'help-inline text-danger',
                         text: value
                     });
                     
-                    $formGroup.append($errorEl).addClass('error');
+                    $formGroup.append($errorEl).addClass('text-danger');
                 };
                 
                 clearFormErrors();
