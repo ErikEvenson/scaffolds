@@ -22,18 +22,27 @@ define(['app', './view'], function(App, View){
                     var fetchingWidgets = App.request('widget:entities');
                 
                     $.when(fetchingWidgets).done(function(widgets){
-                        var listView = new View.Widgets({
+                        var list = new View.Widgets({
                             collection: widgets
                         });
                         
                         layout.on('show', function(){
                             layout.panelRegion.show(panel);
-                            layout.contentRegion.show(listView);
+                            layout.contentRegion.show(list);
                         });
                         
-                        listView.on('itemview:widget:show', function(childView,
+                        list.on('itemview:widget:show', function(childView,
                              model){
                             App.trigger('widget:show', model.get('id'));
+                        });
+                        
+                        panel.on('widget:new', function(){
+                            require(['modules/widgets/new/view'],
+                             function(NewView){
+                                var widget = App.request('widget:entity:new');
+                                widget.save();
+                                console.log(widget);
+                            });
                         });
                         
                         App.mainRegion.show(layout);

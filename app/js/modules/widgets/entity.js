@@ -10,7 +10,12 @@ define(['app'], function(App){
          Backbone, Marionette, $, _){
         
         Entities.Widget = Backbone.Model.extend({
-            urlRoot: 'widgets',
+            defaults: {
+                'name': 'New widget',
+                'type': 'New type'
+            },
+            
+            urlRoot: '/api/widgets',
             
             validate: function(attributes, options){
                 var errors = {};
@@ -60,6 +65,10 @@ define(['app'], function(App){
     
         App.reqres.setHandler('widget:entities', function(){
             return API.getWidgetEntities();
+        });
+        
+        App.reqres.setHandler('widget:entity:new', function(id){
+            return new Entities.Widget();
         });
     });
     

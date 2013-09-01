@@ -30,7 +30,11 @@ define([
         });
         
         View.Panel = Marionette.ItemView.extend({
-            template: panel
+            template: panel,
+            
+            triggers: {
+                'click button.js-new': 'widget:new'
+            }
         });
         
         View.Widget = Marionette.ItemView.extend({

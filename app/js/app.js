@@ -9,7 +9,10 @@ define(['backbone', 'marionette'], function(Backbone, Marionette){
     
     App.addRegions({
         headerRegion: '#header-region',
-        mainRegion: '#main-region'
+        mainRegion: '#main-region',
+        // dialogRegion: Marionette.Region.Dialog.extend({
+        //     el: '#dialog-region'
+        // })
     });
     
     App.navigate = function(route, options){
