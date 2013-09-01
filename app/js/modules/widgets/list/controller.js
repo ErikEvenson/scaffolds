@@ -50,9 +50,9 @@ define([
                                     model: newWidget
                                 });
                                 
-                                App.modalRegion = new ModalRegion(
-                                    {el:'#modal'}
-                                );
+                                // App.modalRegion = new ModalRegion(
+                                //     {el:'#modal'}
+                                // );
                                 
                                 App.modalRegion.show(newView);
                             });

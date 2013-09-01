@@ -6,12 +6,13 @@ The App.
 
 define([
     'backbone',
-    'marionette'
-], function(Backbone, Marionette){
+    'marionette',
+    'regions/modalRegion'
+], function(Backbone, Marionette, ModalRegion){
     var App = new Marionette.Application();
     
     App.addRegions({
-        modalRegion: '#modal-region',
+        modalRegion: new ModalRegion({el: '#modal'}),
         headerRegion: '#header-region',
         mainRegion: '#main-region'
     });
