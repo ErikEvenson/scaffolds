@@ -12,7 +12,7 @@ define([
     var module = App.module('Widgets.New.View', function(View, App, Backbone,
          Marionette, $, _){
              
-        View.Form = Marionette.ItemView.extend({
+        View.Widget = Marionette.ItemView.extend({
             template: form,
             
             events: {

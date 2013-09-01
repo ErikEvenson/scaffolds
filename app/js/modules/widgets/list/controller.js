@@ -5,7 +5,11 @@ The Widgets list controller.
 
 /* global define */
 /*jshint -W098 */
-define(['app', './view'], function(App, View){
+define([
+    'app',
+    './view',
+    'regions/modalRegion'
+], function(App, View, ModalRegion){
     var module = App.module('Widgets.List', function(List, App, Backbone,
          Marionette, $, _){
 
@@ -39,9 +43,18 @@ define(['app', './view'], function(App, View){
                         panel.on('widget:new', function(){
                             require(['modules/widgets/new/view'],
                              function(NewView){
-                                var widget = App.request('widget:entity:new');
-                                widget.save();
-                                console.log(widget);
+                                var newWidget =
+                                 App.request('widget:entity:new');
+                                 
+                                var newView = new NewView.Widget({
+                                    model: newWidget
+                                });
+                                
+                                App.modalRegion = new ModalRegion(
+                                    {el:'#modal'}
+                                );
+                                
+                                App.modalRegion.show(newView);
                             });
                         });
                         

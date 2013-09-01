@@ -1,11 +1,14 @@
-<form>
-  <div class="control-group">
-    <label for="widget-name" class="control-label">Name:</label>
-    <input id="widget-name" name="name" type="text" value="<%= name %>"/>
-  </div>
-  <div class="control-group">
-    <label for="widget-type" class="control-label">Tame:</label>
-    <input id="widget-type" name="type" type="text" value="<%= type %>"/>
-  </div>
-  <button class="btn js-submit">Save</button>
-</form>
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">New widget</h4>
+        </div>
+        <div class="modal-body">
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+    </div>
+</div>

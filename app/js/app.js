@@ -4,15 +4,16 @@ The App.
 'use strict';
 /* global define */
 
-define(['backbone', 'marionette'], function(Backbone, Marionette){
+define([
+    'backbone',
+    'marionette'
+], function(Backbone, Marionette){
     var App = new Marionette.Application();
     
     App.addRegions({
+        modalRegion: '#modal-region',
         headerRegion: '#header-region',
-        mainRegion: '#main-region',
-        // dialogRegion: Marionette.Region.Dialog.extend({
-        //     el: '#dialog-region'
-        // })
+        mainRegion: '#main-region'
     });
     
     App.navigate = function(route, options){
