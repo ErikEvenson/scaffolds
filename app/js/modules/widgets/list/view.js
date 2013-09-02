@@ -7,7 +7,7 @@ The Widgets list view.
 /*jshint -W098 */
 define([
     'app',
-    'requirejs-tpl!./templates/layout.tpl',
+    'requirejs-tpl!/js/templates/layout.tpl',
     'requirejs-tpl!./templates/list.tpl',
     'requirejs-tpl!./templates/listItem.tpl',
     'requirejs-tpl!./templates/empty.tpl',
