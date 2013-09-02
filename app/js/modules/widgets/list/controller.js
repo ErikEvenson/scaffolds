@@ -74,7 +74,20 @@ define(['app', './view', 'regions/modalRegion'], function(App, View, ModalRegion
                         });
 
                         list.on('itemview:widgets:delete', function(childView, model){
-                            model.destroy();
+                            model.destroy({
+                                error: function(){
+                                    panel.triggerMethod('alert', {
+                                        message: 'Server did not delete widget.',
+                                        type: 'danger'
+                                    });
+                                },
+                                success: function(){
+                                    panel.triggerMethod('alert', {
+                                        message: 'Widget deleted.',
+                                        type: 'success'
+                                    });
+                                }
+                            });
                         });
 
                         list.on('itemview:widgets:edit', function(childView, model){

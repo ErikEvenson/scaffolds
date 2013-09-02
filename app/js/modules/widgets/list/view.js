@@ -7,12 +7,13 @@ The Widgets list view.
 /*jshint -W098 */
 define([
     'app',
+    'requirejs-tpl!/js/templates/alert.tpl',
     'requirejs-tpl!/js/templates/layout.tpl',
     'requirejs-tpl!./templates/list.tpl',
     'requirejs-tpl!./templates/listItem.tpl',
     'requirejs-tpl!./templates/empty.tpl',
     'requirejs-tpl!./templates/panel.tpl'
-], function(App, layout, list, listItem, empty, panel){
+], function(App, alertTpl, layout, list, listItem, empty, panel){
     var module = App.module('Widgets.List.View', function(View, App, Backbone, Marionette, $, _){
 
         View.EmptyView = Marionette.ItemView.extend({
@@ -29,6 +30,10 @@ define([
         });
         
         View.Panel = Marionette.ItemView.extend({
+            onAlert: function(alert){
+                this.$el.find('.alert-area').append(alertTpl(alert));
+            },
+
             template: panel,
             
             triggers: {
