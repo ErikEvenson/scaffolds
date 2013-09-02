@@ -16,33 +16,47 @@ define([
             edit: function(id){
                 require(['modules/widgets/entities'], function(){
                     // TODO loading spinner
+                    var layout = new View.Layout();
+                    var panel = new View.Panel();
                     
                     var fetching = App.request('widgets:entity', id);
                     
                     $.when(fetching).done(function(widget){
-                        var view;
+                        var edit;
                         
                         if(widget !== undefined){
-                            view = new View.Edit({
+                            edit = new View.Edit({
                                 model: widget
                             });
                             
-                            view.on('form:submit', function(data){
+                            layout.on('show', function(){
+                                layout.panelRegion.show(panel);
+                                layout.contentRegion.show(edit);
+                            });
+                            
+                            edit.on('form:submit', function(data){
                                 var saveStatus = widget.save(data);
                     
                                 if(saveStatus){
-                                    // Message?
-                                    console.log('SAVED');
+                                    panel.triggerMethod('alert', {
+                                        message: 'Widget saved.',
+                                        type: 'success'
+                                    });
                                 } else {
-                                    view.triggerMethod('form:data:invalid', widget.validationError);
+                                    edit.triggerMethod('form:data:invalid', widget.validationError);
+                                    panel.triggerMethod('alert', {
+                                        message: 'Widget not saved.',
+                                        type: 'danger'
+                                    });
+                                    
                                 }
                             });
 
                         } else {
-                            view = new View.Missing();
+                            edit = new View.Missing();
                         }
                         
-                        App.mainRegion.show(view);
+                        App.mainRegion.show(layout);
                     });
                 });
             }

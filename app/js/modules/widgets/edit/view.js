@@ -7,9 +7,12 @@ The Widgets edit view.
 /*jshint -W098 */
 define([
     'app',
+    'requirejs-tpl!./templates/alert.tpl',
     'requirejs-tpl!./templates/form.tpl',
+    'requirejs-tpl!./templates/layout.tpl',
+    'requirejs-tpl!./templates/panel.tpl',
     'backbone.syphon'
-], function(App, form){
+], function(App, alertTpl, form, layout, panel){
     var module = App.module('Widgets.Edit.View', function(View, App, Backbone, Marionette, $, _){
              
         View.Edit = Marionette.ItemView.extend({
@@ -55,6 +58,23 @@ define([
             },
 
             template: form
+        });
+        
+        View.Layout = Marionette.Layout.extend({
+            template: layout,
+        
+            regions: {
+                panelRegion: '#panel-region',
+                contentRegion: '#content-region'
+            }
+        });
+    
+        View.Panel = Marionette.ItemView.extend({
+            onAlert: function(alert){
+                this.$el.find('.alert-area').append(alertTpl(alert));
+            },
+            
+            template: panel,
         });
     });
     
