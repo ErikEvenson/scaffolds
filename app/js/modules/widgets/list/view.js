@@ -32,7 +32,7 @@ define([
             template: panel,
             
             triggers: {
-                'click button.js-new': 'widget:new'
+                'click button.js-new': 'widgets:new'
             }
         });
         
@@ -49,19 +49,19 @@ define([
             delete: function(e){
                 e.preventDefault();
                 e.stopPropagation();
-                this.trigger('widget:delete', this.model);
+                this.trigger('widgets:delete', this.model);
             },
 
             edit: function(e){
                 e.preventDefault();
                 e.stopPropagation();
-                this.trigger('widget:edit', this.model);
+                this.trigger('widgets:edit', this.model);
             },
             
             show: function(e){
                 e.preventDefault();
                 e.stopPropagation();
-                this.trigger('widget:show', this.model);
+                this.trigger('widgets:show', this.model);
             }
         });
         

@@ -53,7 +53,7 @@ define(['app'], function(App){
             }
         };
         
-        App.on('widget:edit', function(id){
+        App.on('widgets:edit', function(id){
             App.navigate('widgets/' + id + '/edit');
             API.edit(id);
         });
@@ -63,7 +63,7 @@ define(['app'], function(App){
             API.list(criterion);
         });
 
-        App.on('widget:show', function(id){
+        App.on('widgets:show', function(id){
             App.navigate('widgets/' + id);
             API.show(id);
         });

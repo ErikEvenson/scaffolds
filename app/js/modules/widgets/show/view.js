@@ -20,7 +20,7 @@ define([
         View.Show = Marionette.ItemView.extend({
             edit: function(e){
                 e.preventDefault();
-                this.trigger('widget:edit', this.model);
+                this.trigger('widgets:edit', this.model);
             },
             
             events: {

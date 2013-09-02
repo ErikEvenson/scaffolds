@@ -85,15 +85,15 @@ define(['app'], function(App){
             }
         };
     
-        App.reqres.setHandler('widget:entities', function(){
+        App.reqres.setHandler('widgets:entities', function(){
             return API.getWidgets();
         });
         
-        App.reqres.setHandler('widget:entity', function(id){
+        App.reqres.setHandler('widgets:entity', function(id){
             return API.getWidget(id);
         });
         
-        App.reqres.setHandler('widget:entity:new', function(id){
+        App.reqres.setHandler('widgets:entity:new', function(id){
             return new Entities.Widget(id);
         });
     });

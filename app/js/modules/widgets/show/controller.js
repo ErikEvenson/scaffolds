@@ -17,7 +17,7 @@ define([
                 require(['modules/widgets/entities'], function(){
                     // TODO loading spinner
                     
-                    var fetching = App.request('widget:entity', id);
+                    var fetching = App.request('widgets:entity', id);
                     
                     $.when(fetching).done(function(widget){
                         var view;
@@ -27,8 +27,8 @@ define([
                                 model: widget
                             });
                             
-                            view.on('widget:edit', function(widget){
-                                App.trigger('widget:edit', widget.get('id'));
+                            view.on('widgets:edit', function(widget){
+                                App.trigger('widgets:edit', widget.get('id'));
                             });
                         } else {
                             view = new View.Missing();

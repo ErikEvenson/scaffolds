@@ -17,7 +17,7 @@ define([
                 require(['modules/widgets/entities'], function(){
                     // TODO loading spinner
                     
-                    var fetching = App.request('widget:entity', id);
+                    var fetching = App.request('widgets:entity', id);
                     
                     $.when(fetching).done(function(widget){
                         var view;

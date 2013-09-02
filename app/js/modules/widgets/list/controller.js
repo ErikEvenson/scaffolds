@@ -21,7 +21,7 @@ define(['app', './view', 'regions/modalRegion'], function(App, View, ModalRegion
         
         var newModal = function(widgets){
             require(['modules/widgets/new/view'], function(NewView){
-                var newWidget = App.request('widget:entity:new');
+                var newWidget = App.request('widgets:entity:new');
                 
                 var newView = new NewView.Widget({
                     model: newWidget
@@ -61,7 +61,7 @@ define(['app', './view', 'regions/modalRegion'], function(App, View, ModalRegion
                     var layout = new View.Layout();
                     var panel = new View.Panel();
                     
-                    var fetching = App.request('widget:entities');
+                    var fetching = App.request('widgets:entities');
                 
                     $.when(fetching).done(function(widgets){
                         var list = new View.Widgets({
@@ -73,19 +73,19 @@ define(['app', './view', 'regions/modalRegion'], function(App, View, ModalRegion
                             layout.contentRegion.show(list);
                         });
 
-                        list.on('itemview:widget:delete', function(childView, model){
+                        list.on('itemview:widgets:delete', function(childView, model){
                             model.destroy();
                         });
 
-                        list.on('itemview:widget:edit', function(childView, model){
-                            App.trigger('widget:edit', model.get('id'));
+                        list.on('itemview:widgets:edit', function(childView, model){
+                            App.trigger('widgets:edit', model.get('id'));
                         });
                         
-                        list.on('itemview:widget:show', function(childView, model){
-                            App.trigger('widget:show', model.get('id'));
+                        list.on('itemview:widgets:show', function(childView, model){
+                            App.trigger('widgets:show', model.get('id'));
                         });
                         
-                        panel.on('widget:new', function(){
+                        panel.on('widgets:new', function(){
                             newModal(widgets);
                         });
                         
