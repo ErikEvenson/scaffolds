@@ -34,14 +34,6 @@ define([
                 'click button.js-list': 'widgets:list'
             },
             
-            // edit: function(){
-            //     this.trigger('widgets:edit', this.model);
-            // },
-            // 
-            // list: function(){
-            //     App.trigger('widgets:list');
-            // },
-            
             onAlert: function(alert){
                 this.$el.find('.alert-area').append(alertTpl(alert));
             },

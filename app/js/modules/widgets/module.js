@@ -27,7 +27,7 @@ define(['app'], function(App){
         var executeAction = function(action, arg){
             App.startModule('Widgets');
             action(arg);
-            // App.execute("set:active:header", "widgets");
+            App.execute('header:setActive', 'widgets');
         };
         
         var API = {

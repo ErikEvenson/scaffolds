@@ -15,7 +15,13 @@ define([
 
         View.Header = Marionette.ItemView.extend({
             template: listItem,
-            tagName: 'li'
+            tagName: 'li',
+            
+            onRender: function(){
+                if(this.model.selected){
+                    this.$el.addClass('active');
+                }
+            }
         });
         
         View.Headers = Marionette.CompositeView.extend({

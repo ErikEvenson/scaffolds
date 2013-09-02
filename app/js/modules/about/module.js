@@ -24,6 +24,7 @@ define(['app'], function(App){
         var executeAction = function(action, arg){
             App.startModule('About');
             action(arg);
+            App.execute('header:setActive', 'about');
         };
         
         var API = {

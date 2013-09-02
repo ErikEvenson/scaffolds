@@ -12,10 +12,6 @@ define(['app', './view'], function(App, View){
         List.Controller = {
             list: function(){
                 require(['modules/header/entities'], function(){
-                    // Display loading spinner
-                    // var loadingView = new CommonViews.Loading();
-                    // ContactManager.mainRegion.show(loadingView);
-                    
                     var headers = App.request('header:entities');
                     
                     var header = new View.Headers({
@@ -24,8 +20,25 @@ define(['app', './view'], function(App, View){
 
                     App.headerRegion.show(header);
                 });
+            },
+            
+            setActiveHeader: function(headerUrl){
+                require(['modules/header/entities'], function(){
+                    var headers = App.request('header:entities');
+                    
+                    var header = headers.find(function(header){
+                        return header.get('url') === headerUrl;
+                    });
+                    
+                    header.select();
+                    headers.trigger('reset');
+                });
             }
         };
+        
+        App.commands.setHandler('header:setActive', function(headerUrl){
+            return List.Controller.setActiveHeader(headerUrl);
+        });
     });
 
     return App.Header.List.Controller;

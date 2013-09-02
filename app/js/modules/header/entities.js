@@ -5,15 +5,23 @@ The Header entities module.
 
 /* global define */
 /*jshint -W098 */
-define(['app'], function(App){
-    var module = App.module('Header.Entities', function(Entities, App,
-         Backbone, Marionette, $, _){
+define(['app', 'backbone.picky'], function(App){
+    var module = App.module('Header.Entities', function(Entities, App, Backbone, Marionette, $, _){
         
         Entities.Header = Backbone.Model.extend({
+            initialize: function(){
+                var selectable = new Backbone.Picky.Selectable(this);
+                _.extend(this, selectable);
+            }
         });
 
         Entities.Headers = Backbone.Collection.extend({
-            model: Entities.Header,
+            initialize: function(){
+                var singleSelect = new Backbone.Picky.SingleSelect(this);
+                _.extend(this, singleSelect);
+            },
+            
+            model: Entities.Header
         });
         
         var initializeHeaders = function(){
