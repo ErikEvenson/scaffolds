@@ -13,8 +13,7 @@ define([
     'requirejs-tpl!./templates/empty.tpl',
     'requirejs-tpl!./templates/panel.tpl'
 ], function(App, layout, list, listItem, empty, panel){
-    var module = App.module('Widgets.List.View', function(View, App, Backbone,
-         Marionette, $, _){
+    var module = App.module('Widgets.List.View', function(View, App, Backbone, Marionette, $, _){
 
         View.EmptyView = Marionette.ItemView.extend({
             template: empty

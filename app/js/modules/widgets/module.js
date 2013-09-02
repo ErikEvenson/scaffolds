@@ -32,8 +32,10 @@ define(['app'], function(App){
         
         var API = {
             edit: function(id){
-                console.log('TODO EDIT');
-                console.log(id);
+                require(['modules/widgets/edit/controller'],
+                 function(controller){
+                    executeAction(controller.edit, id);
+                });
             },
             
             list: function(criterion){
