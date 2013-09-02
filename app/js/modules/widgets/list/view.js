@@ -42,7 +42,21 @@ define([
             tagName: 'tr',
             
             events: {
+                'click td button.js-edit': 'edit',
+                'click td button.js-delete': 'delete',
                 'click td button.js-show': 'show'
+            },
+            
+            delete: function(e){
+                e.preventDefault();
+                e.stopPropagation();
+                this.trigger('widget:delete', this.model);
+            },
+
+            edit: function(e){
+                e.preventDefault();
+                e.stopPropagation();
+                this.trigger('widget:edit', this.model);
             },
             
             show: function(e){

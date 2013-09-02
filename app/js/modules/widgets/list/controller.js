@@ -34,6 +34,14 @@ define([
                             layout.panelRegion.show(panel);
                             layout.contentRegion.show(list);
                         });
+
+                        list.on('itemview:widget:delete', function(childView, model){
+                            model.destroy();
+                        });
+
+                        list.on('itemview:widget:edit', function(childView, model){
+                            App.trigger('widget:edit', model.get('id'));
+                        });
                         
                         list.on('itemview:widget:show', function(childView, model){
                             App.trigger('widget:show', model.get('id'));
