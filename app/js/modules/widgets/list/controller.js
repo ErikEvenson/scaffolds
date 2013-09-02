@@ -35,26 +35,36 @@ define([
                             layout.contentRegion.show(list);
                         });
                         
-                        list.on('itemview:widget:show', function(childView,
-                             model){
+                        list.on('itemview:widget:show', function(childView, model){
                             App.trigger('widget:show', model.get('id'));
                         });
                         
                         panel.on('widget:new', function(){
-                            require(['modules/widgets/new/view'],
-                             function(NewView){
-                                var newWidget =
-                                 App.request('widget:entity:new');
-                                 
+                            require(['modules/widgets/new/view'], function(NewView){
+                                var newWidget = App.request('widget:entity:new');
                                 var newView = new NewView.Widget({
                                     model: newWidget
                                 });
                                 
                                 newView.on('form:submit', function(data){
-                                    if(newWidget.save(data)){
-                                        widgets.add(newWidget);
+                                    var saveStatus = newWidget.save(
+                                        data,
+                                        {
+                                            error: function(model, xhr, options){
+                                                if(xhr.status === 201){
+                                                    var location = xhr.getResponseHeader('location');
+                                                    var fragments = location.split('/');
+                                                    var id = fragments[fragments.length - 1];
+                                                    model.set('id', id);
+                                                    widgets.add(model);
+                                                    // TODO flash
+                                                }
+                                            }
+                                        }
+                                    );
+                                    
+                                    if(saveStatus){
                                         App.modalRegion.reset();
-                                        // TODO flash
                                     } else {
                                         newView.triggerMethod(
                                             'form:data:invalid',
