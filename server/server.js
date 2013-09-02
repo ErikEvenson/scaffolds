@@ -1,10 +1,10 @@
 'use strict';
 
 var path = require('path');
-var Percolator = require('Percolator').Percolator;
+var Percolator = require('percolator').Percolator;
 var port = process.env.PORT || 5000;
 var staticDir = path.join(__dirname, '../app');
-var CRUDCollection = require('Percolator').CRUDCollection;
+var CRUDCollection = require('percolator').CRUDCollection;
 // var SomeDB = require('SomeDB');
 // var db = new SomeDB();
 var widgets = require('./models/widgets');
