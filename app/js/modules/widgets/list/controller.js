@@ -19,7 +19,7 @@ define(['app', './view', 'regions/modalRegion'], function(App, View, ModalRegion
             return id;
         };
         
-        var newModal = function(widgets){
+        var newModal = function(panel, widgets){
             require(['modules/widgets/new/view'], function(NewView){
                 var newWidget = App.request('widgets:entity:new');
                 
@@ -37,13 +37,17 @@ define(['app', './view', 'regions/modalRegion'], function(App, View, ModalRegion
                                 if(id){
                                     model.set('id', id);
                                     widgets.add(model);
-                                    // TODO flash
                                 }
                             }
                         }
                     );
                     
                     if(saveStatus){
+                        panel.triggerMethod('alert', {
+                            message: 'New widget created.',
+                            type: 'success'
+                        });
+
                         App.modalRegion.reset();
                     } else {
                         newView.triggerMethod('form:data:invalid', newWidget.validationError);
@@ -99,7 +103,7 @@ define(['app', './view', 'regions/modalRegion'], function(App, View, ModalRegion
                         });
                         
                         panel.on('widgets:new', function(){
-                            newModal(widgets);
+                            newModal(panel, widgets);
                         });
                         
                         App.mainRegion.show(layout);

@@ -16,25 +16,34 @@ define([
             show: function(id){
                 require(['modules/widgets/entities'], function(){
                     // TODO loading spinner
-                    
                     var fetching = App.request('widgets:entity', id);
+                    var layout = new View.Layout();
+                    var panel = new View.Panel();
+                    var show;
+                    
+                    panel.on('widgets:list', function(){
+                        App.trigger('widgets:list');
+                    });
                     
                     $.when(fetching).done(function(widget){
-                        var view;
-                        
                         if(widget !== undefined){
-                            view = new View.Show({
+                            show = new View.Show({
                                 model: widget
                             });
                             
-                            view.on('widgets:edit', function(widget){
+                            panel.on('widgets:edit', function(){
                                 App.trigger('widgets:edit', widget.get('id'));
                             });
                         } else {
-                            view = new View.Missing();
+                            show = new View.Missing();
                         }
                         
-                        App.mainRegion.show(view);
+                        layout.on('show', function(){
+                            layout.panelRegion.show(panel);
+                            layout.contentRegion.show(show);
+                        });
+
+                        App.mainRegion.show(layout);
                     });
                 });
             }
