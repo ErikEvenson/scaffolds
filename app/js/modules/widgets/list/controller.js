@@ -5,27 +5,65 @@ The Widgets list controller.
 
 /* global define */
 /*jshint -W098 */
-define([
-    'app',
-    './view',
-    'regions/modalRegion'
-], function(App, View, ModalRegion){
-    var module = App.module('Widgets.List', function(List, App, Backbone,
-         Marionette, $, _){
+define(['app', './view', 'regions/modalRegion'], function(App, View, ModalRegion){
+    var module = App.module('Widgets.List', function(List, App, Backbone, Marionette, $, _){
+        var getIdFromXhrLocation = function(xhr){
+            var id;
+            
+            if(xhr.status === 201){
+                var location = xhr.getResponseHeader('location');
+                var fragments = location.split('/');
+                id = fragments[fragments.length - 1];
+            }
+            
+            return id;
+        };
+        
+        var newModal = function(widgets){
+            require(['modules/widgets/new/view'], function(NewView){
+                var newWidget = App.request('widget:entity:new');
+                
+                var newView = new NewView.Widget({
+                    model: newWidget
+                });
+                
+                newView.on('form:submit', function(data){
+                    var saveStatus = newWidget.save(
+                        data,
+                        {
+                            error: function(model, xhr, options){
+                                var id = getIdFromXhrLocation(xhr);
+                                
+                                if(id){
+                                    model.set('id', id);
+                                    widgets.add(model);
+                                    // TODO flash
+                                }
+                            }
+                        }
+                    );
+                    
+                    if(saveStatus){
+                        App.modalRegion.reset();
+                    } else {
+                        newView.triggerMethod('form:data:invalid', newWidget.validationError);
+                    }
+                });
+                
+                App.modalRegion.show(newView);
+            });
+        };
 
         List.Controller = {
             list: function(criterion){
                 require(['modules/widgets/entities'], function(){
                     // Display loading spinner
-                    // var loadingView = new CommonViews.Loading();
-                    // ContactManager.mainRegion.show(loadingView);
-                    
                     var layout = new View.Layout();
                     var panel = new View.Panel();
                     
-                    var fetchingWidgets = App.request('widget:entities');
+                    var fetching = App.request('widget:entities');
                 
-                    $.when(fetchingWidgets).done(function(widgets){
+                    $.when(fetching).done(function(widgets){
                         var list = new View.Widgets({
                             collection: widgets
                         });
@@ -48,47 +86,12 @@ define([
                         });
                         
                         panel.on('widget:new', function(){
-                            require(['modules/widgets/new/view'], function(NewView){
-                                var newWidget = App.request('widget:entity:new');
-                                var newView = new NewView.Widget({
-                                    model: newWidget
-                                });
-                                
-                                newView.on('form:submit', function(data){
-                                    var saveStatus = newWidget.save(
-                                        data,
-                                        {
-                                            error: function(model, xhr, options){
-                                                if(xhr.status === 201){
-                                                    var location = xhr.getResponseHeader('location');
-                                                    var fragments = location.split('/');
-                                                    var id = fragments[fragments.length - 1];
-                                                    model.set('id', id);
-                                                    widgets.add(model);
-                                                    // TODO flash
-                                                }
-                                            }
-                                        }
-                                    );
-                                    
-                                    if(saveStatus){
-                                        App.modalRegion.reset();
-                                    } else {
-                                        newView.triggerMethod(
-                                            'form:data:invalid',
-                                            newWidget.validationError
-                                        );
-                                    }
-                                });
-                                
-                                App.modalRegion.show(newView);
-                            });
+                            newModal(widgets);
                         });
                         
                         App.mainRegion.show(layout);
                     });
                 });
-                
             }
         };
     });
