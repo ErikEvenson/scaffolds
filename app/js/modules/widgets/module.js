@@ -20,7 +20,7 @@ define(['app'], function(App){
                 'widgets': 'list',
                 'widgets(?filter=:criterion)': 'list',
                 'widgets/:id': 'show',
-                'widgets/:id/edit:': 'edit'
+                'widgets/:id/edit': 'edit'
             }
         });
         
