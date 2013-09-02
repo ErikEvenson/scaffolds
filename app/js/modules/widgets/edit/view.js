@@ -75,6 +75,10 @@ define([
             },
             
             template: panel,
+            
+            triggers: {
+                'click button.js-list': 'widgets:list'
+            }
         });
     });
     

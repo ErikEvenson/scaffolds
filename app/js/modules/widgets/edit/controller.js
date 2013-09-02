@@ -18,8 +18,11 @@ define([
                     // TODO loading spinner
                     var layout = new View.Layout();
                     var panel = new View.Panel();
-                    
                     var fetching = App.request('widgets:entity', id);
+                    
+                    panel.on('widgets:list', function(){
+                        App.trigger('widgets:list');
+                    });
                     
                     $.when(fetching).done(function(widget){
                         var edit;
@@ -29,14 +32,9 @@ define([
                                 model: widget
                             });
                             
-                            layout.on('show', function(){
-                                layout.panelRegion.show(panel);
-                                layout.contentRegion.show(edit);
-                            });
-                            
                             edit.on('form:submit', function(data){
                                 var saveStatus = widget.save(data);
-                    
+                                
                                 if(saveStatus){
                                     panel.triggerMethod('alert', {
                                         message: 'Widget saved.',
@@ -48,13 +46,17 @@ define([
                                         message: 'Widget not saved.',
                                         type: 'danger'
                                     });
-                                    
                                 }
                             });
 
                         } else {
                             edit = new View.Missing();
                         }
+                        
+                        layout.on('show', function(){
+                            layout.panelRegion.show(panel);
+                            layout.contentRegion.show(edit);
+                        });
                         
                         App.mainRegion.show(layout);
                     });
