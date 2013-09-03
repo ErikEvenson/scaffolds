@@ -6,8 +6,9 @@ The Widgets entities module.
 /* global define */
 /*jshint -W098 */
 define(['app'], function(App){
-    var module = App.module('Widgets.Entities', function(Entities, App,
-         Backbone, Marionette, $, _){
+    var module = App.module('Widgets.Entities', function(Entities, App, Backbone, Marionette, $, _){
+        
+        var apiRoot = '/api/v1';
         
         Entities.Widget = Backbone.Model.extend({
             defaults: {
@@ -15,7 +16,7 @@ define(['app'], function(App){
                 'type': 'New type'
             },
             
-            urlRoot: '/api/widgets',
+            urlRoot: apiRoot + '/widgets',
             
             validate: function(attrs, options) {
                 var errors = {};
@@ -35,9 +36,9 @@ define(['app'], function(App){
         });
 
         Entities.Widgets = Backbone.Collection.extend({
-            url: '/api/widgets',
-            model: Entities.Widget,
             comparator: 'name',
+            model: Entities.Widget,
+
             
             parse: function(response, options){
                 var widgets = [];
@@ -48,7 +49,9 @@ define(['app'], function(App){
                 });
 
                 return widgets;
-            }
+            },
+            
+            url: apiRoot + '/widgets'
         });
         
         var API = {

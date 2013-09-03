@@ -9,36 +9,10 @@ var CRUDCollection = require('percolator').CRUDCollection;
 // var db = new SomeDB();
 var widgets = require('./models/widgets');
 
-var schema = {
-    description : 'A widget',
-    type: 'object',
-    properties: {
-        id: {
-            title: 'id',
-            type: 'string',
-            required: true
-        },
-        name: {
-            title: 'name',
-            type: 'string',
-            required: true,
-        },
-        type: {
-            title: 'type',
-            type: 'string',
-            required: true
-        }
-    }
-};
-
-var updateSchema = schema;
-var createSchema = schema;
-delete createSchema.properties.id;
-
 var widgetCollection = new CRUDCollection({
-    schema: schema,
-    updateSchema: updateSchema,
-    createSchema: createSchema,
+    schema: widgets.schema,
+    updateSchema: widgets.updateSchema,
+    createSchema: widgets.createSchema,
     
     create: function(req, res, widget, cb){
         widgets.create(null, widget, function(err, id){
@@ -114,8 +88,8 @@ var server = new Percolator({
     'staticDir': staticDir
 });
 
-server.route('/api/widgets', widgetCollection.handler);
-server.route('/api/widgets/:id', widgetCollection.wildcard);
+server.route('/api/v1/widgets', widgetCollection.handler);
+server.route('/api/v1/widgets/:id', widgetCollection.wildcard);
 
 server.listen(function(err){
     if(err){throw err;}

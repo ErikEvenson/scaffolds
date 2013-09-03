@@ -9,6 +9,32 @@ var widgets = {
     }
 };
 
+exports.schema = {
+    description : 'A widget',
+    type: 'object',
+    properties: {
+        id: {
+            title: 'id',
+            type: 'string',
+            required: true
+        },
+        name: {
+            title: 'name',
+            type: 'string',
+            required: true,
+        },
+        type: {
+            title: 'type',
+            type: 'string',
+            required: true
+        }
+    }
+};
+
+exports.updateSchema = exports.schema;
+exports.createSchema = exports.schema;
+delete exports.createSchema.properties.id;
+
 exports.create = function(id, widget, cb){
     // Assumes widget is validated already
     var err = null;
