@@ -5,18 +5,18 @@ The Widgets entities module.
 
 /* global define */
 /*jshint -W098 */
-define(['app'], function(App){
+define([
+    'app',
+    'config'
+], function(App, config){
     var module = App.module('Widgets.Entities', function(Entities, App, Backbone, Marionette, $, _){
-        
-        var apiRoot = '/api/v1';
-        
         Entities.Widget = Backbone.Model.extend({
             defaults: {
                 'name': 'New widget',
                 'type': 'New type'
             },
             
-            urlRoot: apiRoot + '/widgets',
+            urlRoot: config.apiRoot + '/widgets',
             
             validate: function(attrs, options) {
                 var errors = {};
@@ -51,7 +51,7 @@ define(['app'], function(App){
                 return widgets;
             },
             
-            url: apiRoot + '/widgets'
+            url: config.apiRoot + '/widgets'
         });
         
         var API = {
