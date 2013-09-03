@@ -7,7 +7,7 @@ The App.
 define([
     'backbone',
     'marionette',
-    'regions/modalRegion'
+    'regions/modalRegion',
 ], function(Backbone, Marionette, ModalRegion){
     var App = new Marionette.Application();
 
@@ -53,19 +53,13 @@ define([
     
     App.on('initialize:after', function(){
         if (Backbone.history) {
-            require([
-                'modules/widgets/module',
-                'modules/about/module',
-                'modules/header/module'
-            ], function(){
-                App.Header.start();
-                Backbone.history.start();
-                
-                // If no route is provided, show a list of widgets
-                if (App.getCurrentRoute() === ''){
-                    App.trigger('widgets:list', null);
-                }
-            });
+            App.Header.start();
+            Backbone.history.start();
+            
+            // If no route is provided, show a list of widgets
+            if (App.getCurrentRoute() === ''){
+                App.trigger('widgets:list', null);
+            }
         }
     });
     

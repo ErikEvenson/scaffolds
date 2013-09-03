@@ -86,10 +86,7 @@ module.exports = function(grunt){
                     baseUrl: 'js',
                     dir: 'dist/app',
                     include: [
-                        'modules/about/module',
-                        'modules/header/module',
-                        'modules/widgets/module',
-                        'requirejs',
+                        'requirejs'
                     ],
                     mainConfigFile: 'app/js/main.js',
                     name: 'main'

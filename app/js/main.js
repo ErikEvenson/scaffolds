@@ -49,7 +49,14 @@ require.config({
     }
 });
 
-require(['jquery', 'app', 'bootstrap', 'modules/header/module'],
+require([
+    'jquery',
+    'app',
+    'bootstrap',
+    'modules/widgets/module',
+    'modules/about/module',
+    'modules/header/module'
+],
  function($, App){
     App.start();
 });

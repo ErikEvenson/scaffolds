@@ -9,8 +9,9 @@ define([
     'app',
     './view',
     'regions/modalRegion',
+    'modules/widgets/new/view',
     'modules/widgets/entities'
-], function(App, View, ModalRegion){
+], function(App, View, ModalRegion, NewView){
     var module = App.module('Widgets.List', function(List, App, Backbone, Marionette, $, _){
         var getIdFromXhrLocation = function(xhr){
             var id;
@@ -25,42 +26,40 @@ define([
         };
         
         var newModal = function(panel, widgets){
-            require(['modules/widgets/new/view'], function(NewView){
-                var newWidget = App.request('widgets:entity:new');
-                
-                var newView = new NewView.Widget({
-                    model: newWidget
-                });
-                
-                newView.on('form:submit', function(data){
-                    var saveStatus = newWidget.save(
-                        data,
-                        {
-                            error: function(model, xhr, options){
-                                var id = getIdFromXhrLocation(xhr);
-                                
-                                if(id){
-                                    model.set('id', id);
-                                    widgets.add(model);
-                                }
+            var newWidget = App.request('widgets:entity:new');
+            
+            var newView = new NewView.Widget({
+                model: newWidget
+            });
+            
+            newView.on('form:submit', function(data){
+                var saveStatus = newWidget.save(
+                    data,
+                    {
+                        error: function(model, xhr, options){
+                            var id = getIdFromXhrLocation(xhr);
+                            
+                            if(id){
+                                model.set('id', id);
+                                widgets.add(model);
                             }
                         }
-                    );
-                    
-                    if(saveStatus){
-                        panel.triggerMethod('alert', {
-                            message: 'New widget created.',
-                            type: 'success'
-                        });
-
-                        App.modalRegion.reset();
-                    } else {
-                        newView.triggerMethod('form:data:invalid', newWidget.validationError);
                     }
-                });
+                );
                 
-                App.modalRegion.show(newView);
+                if(saveStatus){
+                    panel.triggerMethod('alert', {
+                        message: 'New widget created.',
+                        type: 'success'
+                    });
+
+                    App.modalRegion.reset();
+                } else {
+                    newView.triggerMethod('form:data:invalid', newWidget.validationError);
+                }
             });
+            
+            App.modalRegion.show(newView);
         };
 
         List.Controller = {
