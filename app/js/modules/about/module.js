@@ -5,7 +5,10 @@ The About module.
 'use strict';
 /* global define */
 /*jshint -W098 */
-define(['app'], function(App){
+define([
+    'app',
+    'modules/about/show/controller'
+], function(App, showController){
     var module = App.module('About', function(Module, App, Backbone,
          Marionette, $, _){
              
@@ -28,15 +31,12 @@ define(['app'], function(App){
         };
         
         var API = {
-            show: function(criterion){
-                require(['modules/about/show/controller'],
-                 function(controller){
-                    executeAction(controller.show);
-                });
+            show: function(){
+                executeAction(showController.show);
             }
         };
     
-        App.on('about:show', function(criterion){
+        App.on('about:show', function(){
             App.navigate('about');
             API.showAbout();
         });

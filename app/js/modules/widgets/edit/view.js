@@ -7,9 +7,9 @@ The Widgets edit view.
 /*jshint -W098 */
 define([
     'app',
-    'requirejs-tpl!/js/templates/alert.tpl',
+    'requirejs-tpl!../../../templates/alert.tpl',
     'requirejs-tpl!./templates/form.tpl',
-    'requirejs-tpl!/js/templates/layout.tpl',
+    'requirejs-tpl!../../../templates/layout.tpl',
     'requirejs-tpl!./templates/panel.tpl',
     'backbone.syphon'
 ], function(App, alertTpl, form, layout, panel){

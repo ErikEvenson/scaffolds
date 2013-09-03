@@ -25,8 +25,8 @@ module.exports = function(grunt){
                 files: [{
                     dot: true,
                     src: [
-                        '<%= config.dist %>/app/js/*.js',
-                        '!<%= config.dist %>/app/js/*.min.js'
+                        // '<%= config.dist %>/app/js/*.js',
+                        // '!<%= config.dist %>/app/js/*.min.js'
                     ]
                 }]
             },
@@ -80,12 +80,30 @@ module.exports = function(grunt){
         },
         
         requirejs: {
+            css: {
+                options: {
+                    cssIn: 'app/css/main.css',
+                    out: 'dist/app/css/main.css'
+                }
+            },
             dist: {
                 options: {
-                    baseUrl: 'app/js',
+                    appDir: './app',
+                    baseUrl: 'js',
+                    dir: 'dist/app',
                     mainConfigFile: 'app/js/main.js',
-                    name: 'main',
-                    out: 'app/js/main.min.js'
+                    modules: [
+                        {
+                            name: 'main',
+                            include: [
+                                'html5shiv',
+                                'requirejs',
+                                'respond'
+                            ]
+                        }
+                    ],
+                    preserveLicenseComments: false,
+                    removedCombined: true
                 }
             }
         },
@@ -102,7 +120,7 @@ module.exports = function(grunt){
                     'git clone git@heroku.com:scaffolds.git .',
                     'rm -rf *',
                     'echo == Creating distribution...',
-                    'cp -R ../app ../server ../package.json ../Procfile .'
+                    'cp -R ../server ../package.json ../Procfile .'
                 ].join('&&')
             },
             deploy: {
@@ -141,13 +159,12 @@ module.exports = function(grunt){
     grunt.registerTask('deploy', [
         'shell:deploy'
     ]);
-    
+
     grunt.registerTask('dist', [
-        'requirejs',
         'clean:dist',
         'shell:dist',
-        'preprocess',
-        'clean:forDeploy'
+        'requirejs:dist',
+        'requirejs:css'
     ]);
     
     grunt.registerTask('server', [

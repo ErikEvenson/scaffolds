@@ -7,6 +7,7 @@ require.config({
         'backbone.picky': '../bower_components/backbone.picky/lib/backbone.picky',
         'backbone.syphon': '../bower_components/backbone.syphon/lib/amd/backbone.syphon',
         bootstrap: '../bower_components/bootstrap/dist/js/bootstrap',
+        html5shiv: '../bower_components/html5shiv/dist/html5shiv',
         jquery: '../bower_components/jquery/jquery',
         json2: '../bower_components/json2/json2',
         marionette: '../bower_components/marionette/lib/backbone.marionette',
@@ -23,6 +24,11 @@ require.config({
                 'json2'
             ],
             exports: 'Backbone'
+        },
+        'backbone.picky': {
+            deps: [
+                'backbone'
+            ]
         },
         bootstrap: {
             deps: [
@@ -44,7 +50,14 @@ require.config({
     }
 });
 
-require(['jquery', 'app', 'bootstrap', 'modules/header/module'],
+require([
+    'jquery',
+    'app',
+    'bootstrap',
+    'modules/widgets/module',
+    'modules/about/module',
+    'modules/header/module'
+],
  function($, App){
     App.start();
 });

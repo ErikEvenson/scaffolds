@@ -5,7 +5,12 @@ The Widgets module.
 'use strict';
 /* global define */
 /*jshint -W098 */
-define(['app'], function(App){
+define([
+    'app',
+    'modules/widgets/edit/controller',
+    'modules/widgets/list/controller',
+    'modules/widgets/show/controller'
+], function(App, editController, listController, showController){
     var module = App.module('Widgets', function(Module, App, Backbone,
          Marionette, $, _){
              
@@ -32,24 +37,15 @@ define(['app'], function(App){
         
         var API = {
             edit: function(id){
-                require(['modules/widgets/edit/controller'],
-                 function(controller){
-                    executeAction(controller.edit, id);
-                });
+                executeAction(editController.edit, id);
             },
             
             list: function(criterion){
-                require(['modules/widgets/list/controller'],
-                 function(controller){
-                    executeAction(controller.list, criterion);
-                });
+                executeAction(listController.list, criterion);
             },
             
             show: function(id){
-                require(['modules/widgets/show/controller'],
-                 function(controller){
-                    executeAction(controller.show, id);
-                });
+                executeAction(showController.show, id);
             }
         };
         

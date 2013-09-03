@@ -5,7 +5,11 @@ The Header entities module.
 
 /* global define */
 /*jshint -W098 */
-define(['app', 'backbone.picky'], function(App){
+define([
+    'app',
+    'modules/widgets/module',
+    'backbone.picky'
+], function(App){
     var module = App.module('Header.Entities', function(Entities, App, Backbone, Marionette, $, _){
         
         Entities.Header = Backbone.Model.extend({

@@ -5,7 +5,10 @@ The Header module.
 'use strict';
 /* global define */
 /*jshint -W098 */
-define(['app'], function(App){
+define([
+    'app',
+    'modules/header/list/controller'
+], function(App, controller){
     var module = App.module('Header', function(Module, App, Backbone,
          Marionette, $, _){
              
@@ -26,10 +29,7 @@ define(['app'], function(App){
         
         var API = {
             list: function(){
-                require(['modules/header/list/controller'],
-                 function(controller){
-                    executeAction(controller.list);
-                });
+                executeAction(controller.list);
             }
         };
     
