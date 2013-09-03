@@ -101,7 +101,9 @@ module.exports = function(grunt){
                                 'respond'
                             ]
                         }
-                    ]
+                    ],
+                    preserveLicenseComments: false,
+                    removedCombined: true
                 }
             }
         },
