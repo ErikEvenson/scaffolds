@@ -1,15 +1,15 @@
 'use strict';
 
 var CRUDCollection = require('percolator').CRUDCollection;
-var widgetsProvider = require('../providers/widgets');
+var provider = require('../providers/widgets');
 
 module.exports = new CRUDCollection({
-    schema: widgetsProvider.schema,
-    updateSchema: widgetsProvider.updateSchema,
-    createSchema: widgetsProvider.createSchema,
+    schema: provider.schema,
+    updateSchema: provider.updateSchema,
+    createSchema: provider.createSchema,
     
-    create: function(req, res, widget, cb){
-        widgetsProvider.create(null, widget, function(err, id){
+    create: function(req, res, model, cb){
+        provider.create(null, model, function(err, id){
             if (err){
                 return cb(true);
             } else {
@@ -20,7 +20,7 @@ module.exports = new CRUDCollection({
     
     /*jshint -W098 */
     destroy: function(req, res, id, cb){
-        widgetsProvider.destroy(id, function(err){
+        provider.destroy(id, function(err){
             if (err) {
                 res.status.internalServerError(err);
             } else {
@@ -32,7 +32,7 @@ module.exports = new CRUDCollection({
     fetch: function(req, res, cb){
         var id = req.uri.child();
         
-        widgetsProvider.read(id, function(err, widget){
+        provider.read(id, function(err, model){
             if (err) {
                 if (err === 'Not found') {
                     return cb(true);
@@ -41,19 +41,19 @@ module.exports = new CRUDCollection({
                     return cb(true);
                 }
             } else {
-                cb(null, widget);
+                cb(null, model);
             }
         });
     },
     
     list: function(req, res, cb){
-        widgetsProvider.list(function(err, widgets){
-            cb(null, widgets);
+        provider.list(function(err, models){
+            cb(null, models);
         });
     },
     
-    update: function(req, res, id, widget, cb){
-        widgetsProvider.update(id, widget, function(err){
+    update: function(req, res, id, model, cb){
+        provider.update(id, model, function(err){
             if (err) {
                 res.status.internalServerError(err);
             } else {
@@ -62,8 +62,8 @@ module.exports = new CRUDCollection({
         });
     },
     
-    upsert: function(req, res, id, widget, cb) {
-        widgetsProvider.upsert(id, widget, function(err){
+    upsert: function(req, res, id, model, cb) {
+        provider.upsert(id, model, function(err){
             if (err) {
                 res.status.internalServerError(err);
             } else {

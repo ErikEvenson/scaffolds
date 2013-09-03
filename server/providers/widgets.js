@@ -1,11 +1,11 @@
 'use strict';
 var uuid = require('node-uuid');
 
-var widgets = {
+var models = {
     '1': {
         'id': '1',
-        'name': 'widget name',
-        'type': 'widget type'
+        'name': 'Grand widget',
+        'type': 'Useful'
     }
 };
 
@@ -35,16 +35,16 @@ exports.updateSchema = exports.schema;
 exports.createSchema = exports.schema;
 delete exports.createSchema.properties.id;
 
-exports.create = function(id, widget, cb){
-    // Assumes widget is validated already
+exports.create = function(id, model, cb){
+    // Assumes model is validated already
     var err = null;
     id = id || uuid.v4();
     
-    if (id in widgets) {
-        err = 'Alread exists';
+    if (id in models) {
+        err = 'Already exists';
     } else {
-        widget.id = id;
-        widgets[id] = widget;
+        model.id = id;
+        models[id] = model;
     }
 
     cb(err, id);
@@ -53,8 +53,8 @@ exports.create = function(id, widget, cb){
 exports.destroy = function(id, cb){
     var err = null;
     
-    if (id in widgets) {
-        delete widgets[id];
+    if (id in models) {
+        delete models[id];
     } else {
         err = 'Not found';
     }
@@ -63,27 +63,27 @@ exports.destroy = function(id, cb){
 };
 
 exports.list = function(cb){
-    cb(null, widgets);
+    cb(null, models);
 };
 
 exports.read = function(id, cb){
     var err = null;
-    var widget = null;
+    var model = null;
     
-    if (id in widgets) {
-        widget = widgets[id];
+    if (id in models) {
+        model = models[id];
     } else {
         err = 'Not found';
     }
     
-    return cb(err, widget);
+    return cb(err, model);
 };
 
-exports.update = function(id, widget, cb) {
+exports.update = function(id, model, cb) {
     var err = null;
     
-    if (id in widgets) {
-        widgets[id] = widget;
+    if (id in models) {
+        models[id] = model;
     } else {
         err = 'Not found';
     }
@@ -91,10 +91,10 @@ exports.update = function(id, widget, cb) {
     cb(err);
 };
 
-exports.upsert = function(id, widget, cb) {
-    if (id in widgets) {
-        exports.update(id, widget, cb);
+exports.upsert = function(id, model, cb) {
+    if (id in models) {
+        exports.update(id, model, cb);
     } else {
-        exports.create(id, widget, cb);
+        exports.create(id, model, cb);
     }
 };
