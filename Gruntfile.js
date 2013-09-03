@@ -80,16 +80,28 @@ module.exports = function(grunt){
         },
         
         requirejs: {
+            css: {
+                options: {
+                    cssIn: 'app/css/main.css',
+                    out: 'dist/app/css/main.css'
+                }
+            },
             dist: {
                 options: {
                     appDir: './app',
                     baseUrl: 'js',
                     dir: 'dist/app',
-                    include: [
-                        'requirejs'
-                    ],
                     mainConfigFile: 'app/js/main.js',
-                    name: 'main'
+                    modules: [
+                        {
+                            name: 'main',
+                            include: [
+                                'html5shiv',
+                                'requirejs',
+                                'respond'
+                            ]
+                        }
+                    ]
                 }
             }
         },
@@ -150,6 +162,7 @@ module.exports = function(grunt){
         'clean:dist',
         'shell:dist',
         'requirejs:dist',
+        'requirejs:css'
     ]);
     
     grunt.registerTask('server', [
