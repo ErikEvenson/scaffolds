@@ -5,7 +5,12 @@ The Widgets list controller.
 
 /* global define */
 /*jshint -W098 */
-define(['app', './view', 'regions/modalRegion'], function(App, View, ModalRegion){
+define([
+    'app',
+    './view',
+    'regions/modalRegion',
+    'modules/widgets/entities'
+], function(App, View, ModalRegion){
     var module = App.module('Widgets.List', function(List, App, Backbone, Marionette, $, _){
         var getIdFromXhrLocation = function(xhr){
             var id;
@@ -60,54 +65,52 @@ define(['app', './view', 'regions/modalRegion'], function(App, View, ModalRegion
 
         List.Controller = {
             list: function(criterion){
-                require(['modules/widgets/entities'], function(){
-                    // Display loading spinner
-                    var layout = new View.Layout();
-                    var panel = new View.Panel();
-                    
-                    var fetching = App.request('widgets:entities');
+                // Display loading spinner
+                var layout = new View.Layout();
+                var panel = new View.Panel();
                 
-                    $.when(fetching).done(function(widgets){
-                        var list = new View.Widgets({
-                            collection: widgets
-                        });
-                        
-                        layout.on('show', function(){
-                            layout.panelRegion.show(panel);
-                            layout.contentRegion.show(list);
-                        });
-
-                        list.on('itemview:widgets:delete', function(childView, model){
-                            model.destroy({
-                                error: function(){
-                                    panel.triggerMethod('alert', {
-                                        message: 'Server did not delete widget.',
-                                        type: 'danger'
-                                    });
-                                },
-                                success: function(){
-                                    panel.triggerMethod('alert', {
-                                        message: 'Widget deleted.',
-                                        type: 'success'
-                                    });
-                                }
-                            });
-                        });
-
-                        list.on('itemview:widgets:edit', function(childView, model){
-                            App.trigger('widgets:edit', model.get('id'));
-                        });
-                        
-                        list.on('itemview:widgets:show', function(childView, model){
-                            App.trigger('widgets:show', model.get('id'));
-                        });
-                        
-                        panel.on('widgets:new', function(){
-                            newModal(panel, widgets);
-                        });
-                        
-                        App.mainRegion.show(layout);
+                var fetching = App.request('widgets:entities');
+            
+                $.when(fetching).done(function(widgets){
+                    var list = new View.Widgets({
+                        collection: widgets
                     });
+                    
+                    layout.on('show', function(){
+                        layout.panelRegion.show(panel);
+                        layout.contentRegion.show(list);
+                    });
+
+                    list.on('itemview:widgets:delete', function(childView, model){
+                        model.destroy({
+                            error: function(){
+                                panel.triggerMethod('alert', {
+                                    message: 'Server did not delete widget.',
+                                    type: 'danger'
+                                });
+                            },
+                            success: function(){
+                                panel.triggerMethod('alert', {
+                                    message: 'Widget deleted.',
+                                    type: 'success'
+                                });
+                            }
+                        });
+                    });
+
+                    list.on('itemview:widgets:edit', function(childView, model){
+                        App.trigger('widgets:edit', model.get('id'));
+                    });
+                    
+                    list.on('itemview:widgets:show', function(childView, model){
+                        App.trigger('widgets:show', model.get('id'));
+                    });
+                    
+                    panel.on('widgets:new', function(){
+                        newModal(panel, widgets);
+                    });
+                    
+                    App.mainRegion.show(layout);
                 });
             }
         };

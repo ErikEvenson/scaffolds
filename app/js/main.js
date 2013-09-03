@@ -24,6 +24,11 @@ require.config({
             ],
             exports: 'Backbone'
         },
+        'backbone.picky': {
+            deps: [
+                'backbone'
+            ]
+        },
         bootstrap: {
             deps: [
                 'jquery'

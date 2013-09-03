@@ -25,8 +25,8 @@ module.exports = function(grunt){
                 files: [{
                     dot: true,
                     src: [
-                        '<%= config.dist %>/app/js/*.js',
-                        '!<%= config.dist %>/app/js/*.min.js'
+                        // '<%= config.dist %>/app/js/*.js',
+                        // '!<%= config.dist %>/app/js/*.min.js'
                     ]
                 }]
             },
@@ -82,10 +82,17 @@ module.exports = function(grunt){
         requirejs: {
             dist: {
                 options: {
-                    baseUrl: 'app/js',
+                    appDir: './app',
+                    baseUrl: 'js',
+                    dir: 'dist/app',
+                    include: [
+                        'modules/about/module',
+                        'modules/header/module',
+                        'modules/widgets/module',
+                        'requirejs',
+                    ],
                     mainConfigFile: 'app/js/main.js',
-                    name: 'main',
-                    out: 'app/js/main.min.js'
+                    name: 'main'
                 }
             }
         },
@@ -102,7 +109,7 @@ module.exports = function(grunt){
                     'git clone git@heroku.com:scaffolds.git .',
                     'rm -rf *',
                     'echo == Creating distribution...',
-                    'cp -R ../app ../server ../package.json ../Procfile .'
+                    'cp -R ../server ../package.json ../Procfile .'
                 ].join('&&')
             },
             deploy: {
@@ -141,13 +148,11 @@ module.exports = function(grunt){
     grunt.registerTask('deploy', [
         'shell:deploy'
     ]);
-    
+
     grunt.registerTask('dist', [
-        'requirejs',
         'clean:dist',
         'shell:dist',
-        'preprocess',
-        'clean:forDeploy'
+        'requirejs:dist',
     ]);
     
     grunt.registerTask('server', [
