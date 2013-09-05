@@ -16,6 +16,31 @@ var server = new Percolator({
     'staticDir': staticDir
 });
 
+// accountsCollection.handler.basicAuthenticate = function(username, password, req, res, cb){
+//     if(username === 'eee' && password === 'fff'){
+//         console.log('XXXX');
+//         return(null, {username: 'eee'});
+//     } else {
+//         console.log('YYYY');
+//         return cb(true);
+//     }
+// };
+// console.log(accountsCollection.handler);
+// 
+// 
+// server.route('/api/v1/accounts', {
+//     basicAuthenticate : function(username, password, req, res, cb){
+//         if (username === 'eee' && password === 'fff'){
+//             return cb(null, {username : 'eee'});
+//         } else {
+//             return cb(true);  // Percolator will 401 for you
+//         }
+//     },
+//     GET : function(req, res){
+//         accountsCollection.handler.GET(req, res);
+//     }
+// });
+
 server.route('/api/v1/accounts', accountsCollection.handler);
 server.route('/api/v1/accounts/:id', accountsCollection.wildcard);
 
@@ -26,3 +51,5 @@ server.listen(function(err){
     if(err){throw err;}
     console.log('Percolator is listening on port ', server.port);
 });
+
+
