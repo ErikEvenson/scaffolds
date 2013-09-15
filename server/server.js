@@ -11,7 +11,7 @@ var server = new Percolator({
     'autolink': true,
     'parseBody': false,
     'port': port,
-    'protocol': 'https',
+    'protocol': 'http',
     'resourcePath': '/api',
     'staticDir': staticDir
 });
