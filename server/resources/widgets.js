@@ -47,6 +47,8 @@ module.exports = new CRUDCollection({
     },
     
     list: function(req, res, cb){
+        console.log(req.headers['x-forwarded-proto']);
+      
         provider.list(function(err, models){
             cb(null, models);
         });
