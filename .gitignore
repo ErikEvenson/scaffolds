@@ -1,5 +1,6 @@
 bower_components
 dist
 node_modules
+.env
 .tmp
 *.min.js
