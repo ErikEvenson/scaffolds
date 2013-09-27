@@ -2,6 +2,7 @@
 
 var CRUDCollection = require('percolator').CRUDCollection;
 var provider = require('../providers/widgets');
+var _ = require('underscore');
 
 function checkProtocol(f){
   return function(req, res){
@@ -16,6 +17,14 @@ function fail(thing){
 
 function warn(thing){
   console.log(['WARNING', thing].join(' '));
+}
+
+function note(thing){
+  console.log(['NOTE', thing].join(' '));
+}
+
+function isIndexed(data){
+  return _.isArray(data) || _.isString(data);
 }
 
 module.exports = new CRUDCollection({

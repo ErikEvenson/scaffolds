@@ -109,6 +109,17 @@ module.exports = function(grunt){
     },
       
     shell: {
+      common: {
+        options: {
+          stdout: true,
+          stderr: true,
+        },
+        command: [
+          'echo == Copying common code from server to client...',
+          'rm -rf "<%= config.app %>/common"',
+          'cp -R common "<%= config.app %>/."',
+        ].join('&&')
+      },
       dist: {
         options: {
           stdout: true,
@@ -120,7 +131,7 @@ module.exports = function(grunt){
           'git clone git@heroku.com:scaffolds.git .',
           'rm -rf *',
           'echo == Creating distribution...',
-          'cp -R ../server ../package.json ../Procfile .'
+          'cp -R ../common ../server ../package.json ../Procfile .'
         ].join('&&')
       },
       deploy: {
@@ -161,6 +172,7 @@ module.exports = function(grunt){
   ]);
 
   grunt.registerTask('dist', [
+    'shell:common',
     'clean:dist',
     'shell:dist',
     'requirejs:dist',
@@ -170,6 +182,7 @@ module.exports = function(grunt){
   grunt.registerTask('server', [
     'jshint',
     'serverTest',
+    'shell:common',
     'shell:server'
   ]);
 };
