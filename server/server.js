@@ -7,8 +7,6 @@ var staticDir = path.join(__dirname, '../app');
 var accountsCollection = require('./resources/accounts');
 var widgetsCollection = require('./resources/widgets');
 
-var EEELib = require('../common/eeelib');
-
 var server = new Percolator({
   'autolink': true,
   'parseBody': false,
@@ -28,5 +26,3 @@ server.listen(function(err){
   if(err){throw err;}
   console.log('Percolator is listening on port ', server.port);
 });
-
-EEELib.burp();
