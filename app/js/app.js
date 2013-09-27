@@ -8,7 +8,7 @@ define([
   'backbone',
   'marionette',
   'regions/modalRegion',
-  'eeelib',
+  '../common/eeelib',
 ], function(Backbone, Marionette, ModalRegion, EEELib){
   var App = new Marionette.Application();
 

@@ -7,7 +7,6 @@ require.config({
     'backbone.picky': '../bower_components/backbone.picky/lib/backbone.picky',
     'backbone.syphon': '../bower_components/backbone.syphon/lib/amd/backbone.syphon',
     bootstrap: '../bower_components/bootstrap/dist/js/bootstrap',
-    eeelib: '../common/eeelib',
     html5shiv: '../bower_components/html5shiv/dist/html5shiv',
     jquery: '../bower_components/jquery/jquery',
     json2: '../bower_components/json2/json2',
