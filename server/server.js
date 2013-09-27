@@ -8,12 +8,12 @@ var accountsCollection = require('./resources/accounts');
 var widgetsCollection = require('./resources/widgets');
 
 var server = new Percolator({
-    'autolink': true,
-    'parseBody': false,
-    'port': port,
-    'protocol': 'http',
-    'resourcePath': '/api',
-    'staticDir': staticDir
+  'autolink': true,
+  'parseBody': false,
+  'port': port,
+  'protocol': 'http',
+  'resourcePath': '/api',
+  'staticDir': staticDir
 });
 
 server.route('/api/v1/accounts', accountsCollection.handler);
@@ -23,8 +23,8 @@ server.route('/api/v1/widgets', widgetsCollection.handler);
 server.route('/api/v1/widgets/:id', widgetsCollection.wildcard);
 
 server.listen(function(err){
-    if(err){throw err;}
-    console.log('Percolator is listening on port ', server.port);
+  if(err){throw err;}
+  console.log('Percolator is listening on port ', server.port);
 });
 
 

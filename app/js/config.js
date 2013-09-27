@@ -5,5 +5,5 @@ Config
 /* global define */
 
 define({
-    apiRoot: '/api/v1'
+  apiRoot: '/api/v1'
 });

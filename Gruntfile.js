@@ -1,175 +1,175 @@
 'use strict';
 
 module.exports = function(grunt){
-    require('load-grunt-tasks')(grunt);
+  require('load-grunt-tasks')(grunt);
+  
+  var config = {
+    app: 'app',
+    dist: 'dist',
+    herokuAppName: 'scaffolds'
+  };
+  
+  grunt.initConfig({
+    config: config,
     
-    var config = {
-        app: 'app',
-        dist: 'dist',
-        herokuAppName: 'scaffolds'
-    };
+    clean: {
+      dist: {
+        files: [{
+          dot: true,
+          src: [
+            '<%= config.dist %>'
+          ]
+        }]
+      },
+      forDeploy: {
+        files: [{
+          dot: true,
+          src: [
+            // '<%= config.dist %>/app/js/*.js',
+            // '!<%= config.dist %>/app/js/*.min.js'
+          ]
+        }]
+      },
+      server: '.tmp'
+    },
     
-    grunt.initConfig({
-        config: config,
-        
-        clean: {
-            dist: {
-                files: [{
-                    dot: true,
-                    src: [
-                        '<%= config.dist %>'
-                    ]
-                }]
-            },
-            forDeploy: {
-                files: [{
-                    dot: true,
-                    src: [
-                        // '<%= config.dist %>/app/js/*.js',
-                        // '!<%= config.dist %>/app/js/*.min.js'
-                    ]
-                }]
-            },
-            server: '.tmp'
+    bower: {
+      options: {
+        baseUrl: 'app/js'
+      },
+      all: {
+        rjsConfig: '<%= config.app %>/js/main.js'
+      }
+    },
+    
+    jshint: {
+      all: [
+        '*.js',
+        'app/**/*.js',
+        '!app/**/*.min.js',
+        '!app/bower_components/**/*.js',
+        'server/**/*.js',
+        'test/**/*.js'
+      ],
+      options: {
+        jshintrc: '.jshintrc'
+      }
+    },
+    
+    mochaTest: {
+      test: {
+        options: {
+          reporter: 'spec'
         },
-        
-        bower: {
-            options: {
-                baseUrl: 'app/js'
-            },
-            all: {
-                rjsConfig: '<%= config.app %>/js/main.js'
-            }
-        },
-        
-        jshint: {
-            all: [
-                '*.js',
-                'app/**/*.js',
-                '!app/**/*.min.js',
-                '!app/bower_components/**/*.js',
-                'server/**/*.js',
-                'test/**/*.js'
-            ],
-            options: {
-                jshintrc: '.jshintrc'
-            }
-        },
-        
-        mochaTest: {
-            test: {
-                options: {
-                    reporter: 'spec'
-                },
-                src: ['test/server/**/*.js']
-            }
-        },
-            
-        pkg: grunt.file.readJSON('package.json'),
-        
-        preprocess: {
-            options: {
-                context : {}
-            },
-            inline: {
-                src: ['dist/**/*.jade'],
-                options: {
-                    inline: true
-                }
-            }
-        },
-        
-        requirejs: {
-            css: {
-                options: {
-                    cssIn: 'app/css/main.css',
-                    out: 'dist/app/css/main.css'
-                }
-            },
-            dist: {
-                options: {
-                    appDir: './app',
-                    baseUrl: 'js',
-                    dir: 'dist/app',
-                    mainConfigFile: 'app/js/main.js',
-                    modules: [
-                        {
-                            name: 'main',
-                            include: [
-                                'html5shiv',
-                                'requirejs',
-                                'respond'
-                            ]
-                        }
-                    ],
-                    preserveLicenseComments: false,
-                    removedCombined: true
-                }
-            }
-        },
-          
-        shell: {
-            dist: {
-                options: {
-                    stdout: true,
-                    stderr: true
-                },
-                command: [
-                    'mkdir <%= config.dist %>',
-                    'cd <%= config.dist %>',
-                    'git clone git@heroku.com:scaffolds.git .',
-                    'rm -rf *',
-                    'echo == Creating distribution...',
-                    'cp -R ../server ../package.json ../Procfile .'
-                ].join('&&')
-            },
-            deploy: {
-                options: {
-                    stdout: true,
-                    stderr: true
-                },
-                command: [
-                    'echo == Deploying updates to heroku...',
-                    'cd <%= config.dist %>',
-                    'git add --all .',
-                    'git commit -m "mod"',
-                    'git push origin master'
-                ].join('&&')
-            },
-            server: {
-                options: {
-                    stdout: true,
-                    stderr: true
-                },
-                command: [
-                    'foreman start'
-                ].join('&&')
-            }
+        src: ['test/server/**/*.js']
+      }
+    },
+      
+    pkg: grunt.file.readJSON('package.json'),
+    
+    preprocess: {
+      options: {
+        context : {}
+      },
+      inline: {
+        src: ['dist/**/*.jade'],
+        options: {
+          inline: true
         }
-    });
+      }
+    },
     
-    grunt.registerTask('default', [
-        'jshint',
-        'serverTest',
-        'dist'
-    ]);
-    
-    grunt.registerTask('serverTest', 'mochaTest');
+    requirejs: {
+      css: {
+        options: {
+          cssIn: 'app/css/main.css',
+          out: 'dist/app/css/main.css'
+        }
+      },
+      dist: {
+        options: {
+          appDir: './app',
+          baseUrl: 'js',
+          dir: 'dist/app',
+          mainConfigFile: 'app/js/main.js',
+          modules: [
+            {
+              name: 'main',
+              include: [
+                'html5shiv',
+                'requirejs',
+                'respond'
+              ]
+            }
+          ],
+          preserveLicenseComments: false,
+          removedCombined: true
+        }
+      }
+    },
+      
+    shell: {
+      dist: {
+        options: {
+          stdout: true,
+          stderr: true
+        },
+        command: [
+          'mkdir <%= config.dist %>',
+          'cd <%= config.dist %>',
+          'git clone git@heroku.com:scaffolds.git .',
+          'rm -rf *',
+          'echo == Creating distribution...',
+          'cp -R ../server ../package.json ../Procfile .'
+        ].join('&&')
+      },
+      deploy: {
+        options: {
+          stdout: true,
+          stderr: true
+        },
+        command: [
+          'echo == Deploying updates to heroku...',
+          'cd <%= config.dist %>',
+          'git add --all .',
+          'git commit -m "mod"',
+          'git push origin master'
+        ].join('&&')
+      },
+      server: {
+        options: {
+          stdout: true,
+          stderr: true
+        },
+        command: [
+          'foreman start'
+        ].join('&&')
+      }
+    }
+  });
+  
+  grunt.registerTask('default', [
+    'jshint',
+    'serverTest',
+    'dist'
+  ]);
+  
+  grunt.registerTask('serverTest', 'mochaTest');
 
-    grunt.registerTask('deploy', [
-        'shell:deploy'
-    ]);
+  grunt.registerTask('deploy', [
+    'shell:deploy'
+  ]);
 
-    grunt.registerTask('dist', [
-        'clean:dist',
-        'shell:dist',
-        'requirejs:dist',
-        'requirejs:css'
-    ]);
-    
-    grunt.registerTask('server', [
-        'jshint',
-        'serverTest',
-        'shell:server'
-    ]);
+  grunt.registerTask('dist', [
+    'clean:dist',
+    'shell:dist',
+    'requirejs:dist',
+    'requirejs:css'
+  ]);
+  
+  grunt.registerTask('server', [
+    'jshint',
+    'serverTest',
+    'shell:server'
+  ]);
 };

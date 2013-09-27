@@ -6,9 +6,9 @@
  // require('../../server/providers/userProvider').UserProvider;
 // 
 // describe('Persistence', function(){
-//     describe('#UserProvider', function(){
-//         it('should exist', function(){
-//             expect(UserProvider).to.not.equal(undefined);
-//         });
+//   describe('#UserProvider', function(){
+//     it('should exist', function(){
+//       expect(UserProvider).to.not.equal(undefined);
 //     });
+//   });
 // });

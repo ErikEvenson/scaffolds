@@ -1,9 +1,9 @@
 <thead>
-    <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th></th>
-    </tr>
+  <tr>
+    <th>Name</th>
+    <th>Type</th>
+    <th></th>
+  </tr>
 </thead>
 <tbody>
 </tbody>

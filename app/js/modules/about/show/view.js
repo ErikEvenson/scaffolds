@@ -6,16 +6,16 @@ The About show view.
 /* global define */
 /*jshint -W098 */
 define([
-    'app',
-    'requirejs-tpl!./templates/message.tpl'
+  'app',
+  'requirejs-tpl!./templates/message.tpl'
 ], function(App, message){
-    var module = App.module('About.Show.View', function(View, App, Backbone,
-         Marionette, $, _){
+  var module = App.module('About.Show.View', function(View, App, Backbone,
+     Marionette, $, _){
 
-        View.Message = Marionette.ItemView.extend({
-            template: message
-        });
+    View.Message = Marionette.ItemView.extend({
+      template: message
     });
-    
-    return App.About.Show.View;
+  });
+  
+  return App.About.Show.View;
 });
