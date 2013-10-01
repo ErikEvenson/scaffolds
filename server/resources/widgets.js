@@ -3,28 +3,13 @@
 var CRUDCollection = require('percolator').CRUDCollection;
 var provider = require('../providers/widgets');
 var _ = require('underscore');
+var EEELib = require('../../common/eeelib');
 
 function checkProtocol(f){
   return function(req, res){
     console.log(req.headers['x-forwarded-proto']);
     return f.apply(null, arguments);
   };
-}
-
-function fail(thing){
-  throw new Error(thing);
-}
-
-function warn(thing){
-  console.log(['WARNING', thing].join(' '));
-}
-
-function note(thing){
-  console.log(['NOTE', thing].join(' '));
-}
-
-function isIndexed(data){
-  return _.isArray(data) || _.isString(data);
 }
 
 module.exports = new CRUDCollection({
@@ -71,6 +56,8 @@ module.exports = new CRUDCollection({
   },
   
   list: function(req, res, cb){
+    EEELib.note('A server note.');
+    
     provider.list(function(err, models){
       cb(null, models);
     });

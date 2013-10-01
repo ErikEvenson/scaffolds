@@ -8,7 +8,8 @@ define([
   'backbone',
   'marionette',
   'regions/modalRegion',
-], function(Backbone, Marionette, ModalRegion){
+  'eeelib'
+], function(Backbone, Marionette, ModalRegion, EEELib){
   var App = new Marionette.Application();
 
   App.Router = Marionette.AppRouter.extend({
@@ -61,6 +62,8 @@ define([
         App.trigger('widgets:list', null);
       }
     }
+    
+    EEELib.note('A client note.');
   });
   
   var API = {
