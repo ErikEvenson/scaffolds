@@ -3,7 +3,7 @@
 var CRUDCollection = require('percolator').CRUDCollection;
 var provider = require('../providers/widgets');
 var _ = require('underscore');
-var EEELib = require('../../common/eeelib');
+var EEELib = require('eeelib');
 
 function checkProtocol(f){
   return function(req, res){

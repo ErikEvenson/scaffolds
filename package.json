@@ -6,7 +6,7 @@
     "type": "git",
     "url": "git://github.com/ErikEvenson/scaffolds.git"
   },
-  "author": "Erik E. Evenson",
+  "author": "Erik Evenson <erik.e.evenson@gmail.com>",
   "bugs": {
     "url": "https://github.com/ErikEvenson/scaffolds/issues"
   },
@@ -29,6 +29,7 @@
     "npmedge": "0.1.4"
   },
   "dependencies": {
+    "eeelib": "0.0.0",
     "percolator": "1.2.1",
     "node-uuid": "1.4.1",
     "underscore": "1.5.2"

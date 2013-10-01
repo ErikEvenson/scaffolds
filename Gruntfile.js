@@ -109,17 +109,6 @@ module.exports = function(grunt){
     },
       
     shell: {
-      common: {
-        options: {
-          stdout: true,
-          stderr: true,
-        },
-        command: [
-          'echo == Copying common code from server to client...',
-          'rm -rf "<%= config.app %>/common"',
-          'cp -R common "<%= config.app %>/."',
-        ].join('&&')
-      },
       dist: {
         options: {
           stdout: true,
@@ -174,7 +163,6 @@ module.exports = function(grunt){
 
   // Set up a distribution.
   grunt.registerTask('dist', [
-    'shell:common',   // Make common files available to client app
     'clean:dist',     // Clean out any old distribution
     'shell:dist',     // Create the distribution
     'requirejs:dist', // Optimize client js files
@@ -185,7 +173,6 @@ module.exports = function(grunt){
   grunt.registerTask('server', [
     'jshint',       // Lint
     'serverTest',   // Test
-    'shell:common', // Make common files available to client app
     'shell:server'  // Start server
   ]);
 };
