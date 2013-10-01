@@ -167,22 +167,25 @@ module.exports = function(grunt){
   
   grunt.registerTask('serverTest', 'mochaTest');
 
+  // Deploy distribution
   grunt.registerTask('deploy', [
-    'shell:deploy'
+    'shell:deploy'  // Deploy
   ]);
 
+  // Set up a distribution.
   grunt.registerTask('dist', [
-    'shell:common',
-    'clean:dist',
-    'shell:dist',
-    'requirejs:dist',
-    'requirejs:css'
+    'shell:common',   // Make common files available to client app
+    'clean:dist',     // Clean out any old distribution
+    'shell:dist',     // Create the distribution
+    'requirejs:dist', // Optimize client js files
+    'requirejs:css'   // Optimize client css files
   ]);
   
+  // Run the server.
   grunt.registerTask('server', [
-    'jshint',
-    'serverTest',
-    'shell:common',
-    'shell:server'
+    'jshint',       // Lint
+    'serverTest',   // Test
+    'shell:common', // Make common files available to client app
+    'shell:server'  // Start server
   ]);
 };
